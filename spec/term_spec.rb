@@ -13,32 +13,29 @@ describe Base do
   end
 end
 
+describe Term do
+  before(:each) do
+    @term = XTF::Element::Term.new
+  end
+  
+  it "'new' should accept a hash of attributes" do
+    attributes = {:field => "text", :max_snippets => "4"}
+    @term = Term.new(attributes)
+    @term.attributes.should == attributes
+  end
+  
+  it "'new' should accept a hash with the term's value included" do
+    params = {:value => "term"}
+    @term = Term.new(params)
+    @term.attributes.should == {}
+    @term.value.should == "term"
+  end
+  
+end
+
 describe Clause do
   before(:each) do
     @base = @clause = XTF::Element::Clause.new
   end
   
-end
-
-describe Term do
-  before(:each) do
-    @base = @term = XTF::Element::Term.new
-  end
-  
-  
-  it "should respond to 'value' and 'section_type' attributes" do
-#     @term.should respond_to :value, :section_type
-  end
-  
-  it "should optionally take attributes as arguments when instantiated" do
-#     @term = XTF::Element::Term.new(:field => "text", :max_snippets => "4",  :boost => "6", :value => "value")
-#     @term.field.should == "text"
-#     @term.max_snippets.should == "4"
-#     @term.boost.should == "6"
-#     @term.value.should == "value"
-  end
-  
-  it "'value' should be one word without white-space" do
-    
-  end
 end

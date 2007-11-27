@@ -1,7 +1,8 @@
 class XTF::Element::Term < XTF::Element::Base
-  def self.attributes
-    [:value, :section_type] | XTF::Element::Base.attribute_keys
+  attr_accessor :value
+  def initialize(*args)
+    super
+    @value = nil
+    @value = @attributes.delete(:value)
   end
-  attr_accessor *self.attributes
-    
 end
