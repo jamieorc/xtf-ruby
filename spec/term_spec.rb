@@ -31,6 +31,15 @@ describe Term do
     @term.value.should == "term"
   end
   
+  it "should render XTF query xml when 'to_xml' called" do
+    attributes = {:field => "text", :max_snippets => "4", :value => "term"}
+    @term = Term.new(attributes)
+    @term.to_xml_node.attributes.size.should == 2
+    @term.to_xml_node.attributes['field'].should == "text"
+    @term.to_xml_node.attributes['maxSnippets'].should == "4"
+    @term.to_xml_node.text.should == "term"
+  end
+  
 end
 
 describe Clause do
