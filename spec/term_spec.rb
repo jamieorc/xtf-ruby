@@ -3,10 +3,6 @@ require File.dirname(__FILE__) + '/spec_helper'
 include XTF::Element
 
 describe "Base", :shared => true do
-#   before(:each) do
-#     @base = XTF::Element::Base.new
-#   end
-  
   it "should have 'field', 'max_snippets', 'boost' and 'section_type' methods" do
     @base.should respond_to :field, :max_snippets, :boost, :section_type
   end
