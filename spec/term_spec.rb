@@ -31,6 +31,17 @@ describe Term do
     @term.value.should == "term"
   end
   
+  it "'new' should take a String as the first parameter and use the value as the value" do
+    @term = Term.new("word")
+    @term.value.should == "word"
+  end
+  
+  it "'new' should ignore :value key in argument hash if String passed as first argument" do
+    @term = Term.new("word", {:value => "NOT_USED"})
+    @term.value.should == "word"
+    @term.attributes[:value].should be_nil
+  end
+  
   it "should render XTF query xml when 'to_xml' called" do
     attributes = {:field => "text", :max_snippets => "4", :value => "term"}
     @term = Term.new(attributes)

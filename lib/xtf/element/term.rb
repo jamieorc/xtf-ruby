@@ -1,9 +1,10 @@
 class XTF::Element::Term < XTF::Element::Base
   attr_accessor :value
   def initialize(*args)
+    @value = args.shift if args[0].kind_of?(String)
     super
-    @value = nil
-    @value = @attributes.delete(:value)
+    val = @attributes.delete(:value)
+    @value ||= val
   end
   
   def to_xml_node
