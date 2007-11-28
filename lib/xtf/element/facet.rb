@@ -11,7 +11,7 @@ class XTF::Element::Facet < XTF::Element::Base
   end
   
   def to_xml_node
-    xml = XTF::XML::Element.new(self.tag_name.camelize(:lower))
+    xml = XTF::XML::Element.new(self.tag_name)
     self.attributes.each_pair { |key, value| xml.attributes[key.to_s.camelize(:lower)] = value if value}
     xml
   end
