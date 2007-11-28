@@ -3,11 +3,8 @@ require File.dirname(__FILE__) + '/spec_helper'
 include XTF::Element
 
 describe Clause do
-  before(:each) do
-    @clause = XTF::Element::Clause.new("and")
-  end
-  
   it "should have 'attributes' hash" do
+    @clause = Clause.new("and")
     @clause.should respond_to :attributes
     @clause.attributes.should be_a_kind_of(Hash)
   end
@@ -28,6 +25,14 @@ describe Clause do
     @clause.attributes[:tag_name].should be_nil
   end
   
+  it "should only accept these tag names: phrase, exact, and, or, or_near, not, near, range" do
+    lambda { Clause.new("other") }.should raise_error(ArgumentError)
+    
+    %w{phrase exact and or or_near not near range}.each do |name|
+      lambda { Clause.new(name) }.should_not raise_error(ArgumentError)
+    end
+  end
+  
   it "'new' should accept a hash of attributes" do
     attributes = {:field => "text", :max_snippets => "4", :boost => "8"}
     @clause = Clause.new("and", attributes)
@@ -35,6 +40,7 @@ describe Clause do
   end
   
   it "'content' should return an array" do
+    @clause = Clause.new("and")
     @clause.content.should be_a_kind_of(Array)
     @clause.content.size.should be 0
   end

@@ -1,4 +1,5 @@
 class XTF::Element::Clause < XTF::Element::Base
+  VALID_TAG_NAMES = %w{phrase exact and or or_near not near range}
   
   # an Array that contains any number of clauses and/or terms
   attr_accessor :content
@@ -8,7 +9,9 @@ class XTF::Element::Clause < XTF::Element::Base
     super
     tn = @attributes.delete(:tag_name)
     @tag_name ||= tn
-    (raise ArgumentError, "need tag_name for XTF::Element::Clause") unless @tag_name
+    raise ArgumentError, "need tag_name for XTF::Element::Clause" unless @tag_name
+    raise ArgumentError, "tag_name #{@tag_name} not valid for XTF::Element::Clause. Must be one of: #{VALID_TAG_NAMES.join(', ')}" unless VALID_TAG_NAMES.include?(@tag_name)
+    
     @content = @attributes.delete(:content) || []
     @content = [@content] unless @content.is_a?(Array)
   end
