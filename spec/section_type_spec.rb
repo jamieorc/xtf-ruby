@@ -19,12 +19,12 @@ describe SectionType do
     @st.content.should be_a_kind_of(Clause)
   end
   
-  it "should render it's XML representation properly when 'content' is a Term" do
+  it "should render its XML representation properly when 'content' is a Term" do
     @st = SectionType.new(Term.new("word"))
     REXML::Document.new(@st.to_xml).write([]).first.should == REXML::Document.new("<sectionType> <term>word</term> </sectionType>").write([]).first
   end
   
-  it "should render it's XML representation properly when 'content' is a Clause" do
+  it "should render its XML representation properly when 'content' is a Clause" do
     @st = SectionType.new
     clause = Clause.new("and")
     clause.content = [Term.new("word"), Term.new("digit")]
