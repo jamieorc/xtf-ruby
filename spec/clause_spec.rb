@@ -25,16 +25,13 @@ describe Clause do
     @clause.attributes[:tag_name].should be_nil
   end
   
-  it "should only accept these tag names: phrase, exact, and, or, or_near, not, near, range" do
-    lambda { Clause.new("other") }.should raise_error(ArgumentError)
-    lambda { Clause.new("term") }.should raise_error(ArgumentError)
-    lambda { Clause.new("facet") }.should raise_error(ArgumentError)
-    lambda { Clause.new("query") }.should raise_error(ArgumentError)
-    lambda { Clause.new("section_type") }.should raise_error(ArgumentError)
-    lambda { Clause.new("result_data") }.should raise_error(ArgumentError)
-    
+  it "should only accept these tag names: phrase, exact, and, or, or_near, not, near, range. Otherwise, raise an error" do
     %w{phrase exact and or or_near not near range}.each do |name|
       lambda { Clause.new(name) }.should_not raise_error(ArgumentError)
+    end
+    
+    %w{other term facet query section_type result_data}.each do |name|
+      lambda { Clause.new(name) }.should raise_error(ArgumentError)
     end
   end
   
