@@ -54,4 +54,30 @@ describe Clause do
     @clause.content.should be_a_kind_of(Array)
     @clause.content.size.should be 1
   end
+  
+  it "should accept content as Term or Clause and insert it into an Array" do
+    @clause = Clause.new("and")
+    @clause.content.should == []
+    @clause.content = Term.new("word")
+    @clause.content.should be_a_kind_of(Array)
+    @clause.content.size.should be 1
+    @clause.content.first.should be_a_kind_of(Term)
+    @clause.content.first.value.should == "word"
+  end
+  
+  it "should render XTF query xml when 'to_xml' called" do
+    attributes = {:field => "text", :max_snippets => "4"}
+    @clause = Clause.new("and", attributes)
+    @clause.to_xml_node.attributes.size.should == 2
+    @clause.to_xml_node.attributes['field'].should == "text"
+    @clause.to_xml_node.attributes['maxSnippets'].should == "4"
+    
+    @clause.content = Term.new("word")
+    d1 = REXML::Document.new(@clause.to_xml)
+    d2 = REXML::Document.new("<and maxSnippets='4' field='text'><term>word</term></and>")
+    d1.write.first.should == d2.write.first
+    
+    @clause.content << Term.new("digit")
+    REXML::Document.new(@clause.to_xml).write.first.should == REXML::Document.new("<and maxSnippets='4' field='text'> <term>word</term> <term>digit</term> </and>").write.first
+  end
 end
