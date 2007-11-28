@@ -27,6 +27,10 @@ describe Clause do
   
   it "should only accept these tag names: phrase, exact, and, or, or_near, not, near, range" do
     lambda { Clause.new("other") }.should raise_error(ArgumentError)
+    lambda { Clause.new("term") }.should raise_error(ArgumentError)
+    lambda { Clause.new("facet") }.should raise_error(ArgumentError)
+    lambda { Clause.new("query") }.should raise_error(ArgumentError)
+    lambda { Clause.new("section_type") }.should raise_error(ArgumentError)
     
     %w{phrase exact and or or_near not near range}.each do |name|
       lambda { Clause.new(name) }.should_not raise_error(ArgumentError)
