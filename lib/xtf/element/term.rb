@@ -1,5 +1,6 @@
 class XTF::Element::Term < XTF::Element::Base
   attr_accessor :value
+  attr_accessor :section_type 
 
   def initialize(*args)
     @tag_name = "term"
