@@ -1,7 +1,7 @@
 class XTF::Element::Clause < XTF::Element::Base
   
   # an Array that contains any number of clauses and/or terms
-  attr_accessor :content, :tag_name
+  attr_accessor :content
   
   def initialize(*args)
     @tag_name = args.shift.to_s if args[0].is_a?(String) or args[0].is_a?(Symbol)
