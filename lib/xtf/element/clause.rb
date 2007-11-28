@@ -1,5 +1,5 @@
 class XTF::Element::Clause < XTF::Element::Base
-  VALID_TAG_NAMES = %w{phrase exact and or or_near not near range}
+  VALID_TAG_NAMES = %w{phrase exact and or or_near orNear not near range}
   
   # an Array that contains any number of clauses and/or terms
   attr_accessor :content

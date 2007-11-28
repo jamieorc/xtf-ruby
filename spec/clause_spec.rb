@@ -25,8 +25,8 @@ describe Clause do
     @clause.attributes[:tag_name].should be_nil
   end
   
-  it "should only accept these tag names: phrase, exact, and, or, or_near, not, near, range. Otherwise, raise an error" do
-    %w{phrase exact and or or_near not near range}.each do |name|
+  it "should only accept these tag names: phrase, exact, and, or, or_near, orNear, not, near, range. Otherwise, raise an error" do
+    %w{phrase exact and or or_near orNear not near range}.each do |name|
       lambda { Clause.new(name) }.should_not raise_error(ArgumentError)
     end
     
