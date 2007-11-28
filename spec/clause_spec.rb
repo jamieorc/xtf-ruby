@@ -71,13 +71,13 @@ describe Clause do
     @clause.to_xml_node.attributes.size.should == 2
     @clause.to_xml_node.attributes['field'].should == "text"
     @clause.to_xml_node.attributes['maxSnippets'].should == "4"
-    
+    array=[]
     @clause.content = Term.new("word")
     d1 = REXML::Document.new(@clause.to_xml)
     d2 = REXML::Document.new("<and maxSnippets='4' field='text'><term>word</term></and>")
-    d1.write.first.should == d2.write.first
-    
+    d1.write([]).first.should == d2.write([]).first
+
     @clause.content << Term.new("digit")
-    REXML::Document.new(@clause.to_xml).write.first.should == REXML::Document.new("<and maxSnippets='4' field='text'> <term>word</term> <term>digit</term> </and>").write.first
+    REXML::Document.new(@clause.to_xml).write([]).first.should == REXML::Document.new("<and maxSnippets='4' field='text'> <term>word</term> <term>digit</term> </and>").write([]).first
   end
 end
