@@ -1,6 +1,6 @@
 class XTF::Element::Term < XTF::Element::Base
   attr_accessor :value
-  attr_reader :tag_name
+
   def initialize(*args)
     @tag_name = "term"
     @value = args.shift if args[0].kind_of?(String)

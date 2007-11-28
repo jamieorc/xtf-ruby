@@ -1,5 +1,4 @@
 class XTF::Element::Facet < XTF::Element::Base
-  attr_reader :tag_name
   
   # can take a String or Symbol as first argument for required attribute #field
   def initialize(*args)
