@@ -1,19 +1,25 @@
 class XTF::Element::Base
-  ATTRIBUTE_KEYS = [:field, :max_snippets, :boost]
+  BASE_ATTRIBUTE_KEYS = [:field, :max_snippets, :boost]
+
+  def self.attribute_keys(*args)
+    array = args.flatten
+    list = array.inspect
+    class_eval(%Q{def attribute_keys() #{list} end}, __FILE__, __LINE__)
+    array.each do |k|
+      attr_accessor k
+    end
+  end
+
+  attribute_keys *BASE_ATTRIBUTE_KEYS
   
-  ATTRIBUTE_KEYS.each { |k| attr_accessor k }
   attr_reader   :tag_name
   
   # Takes a +Hash+ of attributes and sets them. Silently ignores erroneous keys.
   def initialize(*args)
     params = args[0]
-    ATTRIBUTE_KEYS.each { |k| self.__send__("#{k}=", params[k]) } if params
+    attribute_keys.each { |k| self.__send__("#{k}=", params[k]) } if params
   end
-  
-  def attribute_keys
-    ATTRIBUTE_KEYS
-  end
-  
+    
   # Returns a +Hash+ of the attributes listed in +ATTRIBUTE_KEYS+ with their values.
   # The keys are +Symbol+s.
   def attributes
@@ -22,5 +28,5 @@ class XTF::Element::Base
       hash
     end
   end
-
+  
 end

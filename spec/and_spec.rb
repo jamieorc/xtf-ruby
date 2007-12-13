@@ -1,0 +1,33 @@
+require File.dirname(__FILE__) + '/spec_helper'
+
+include XTF::Element
+
+describe "And" do
+  before(:each) do
+    @and = And.new()
+  end
+  it "should have attribute_keys: :field, :fields, :max_snippets, :boost, :use_proximity, :slop" do
+    @and.attribute_keys.should == XTF::Element::Base::BASE_ATTRIBUTE_KEYS + [:fields, :use_proximity, :slop]
+  end
+  
+  it "should have an Array for content()" do
+    @and.content.should be_kind_of(Array)
+  end
+end
+
+describe "And.new" do
+  it "should accept :field or :fields, but not both. Raise an error if both provided" do
+    lambda { And.new(:field => "field") }.should_not raise_error(ArgumentError)
+    lambda { And.new(:fields => "one, two", :slop => "8") }.should_not raise_error(ArgumentError)
+    lambda { And.new(:field => "field", :fields => "one, two", :slop => "8") }.should raise_error(ArgumentError)
+  end
+
+  it "should require :slop attribute if :fields is provided, and vice-versa" do
+    lambda { And.new(:fields => "one, two") }.should raise_error(ArgumentError)
+    lambda { And.new(:slop => "8") }.should raise_error(ArgumentError)
+    lambda { And.new(:fields => "one, two", :slop => "8") }.should_not raise_error(ArgumentError)
+
+    @clause = And.new(:fields => "one, two", :slop => "8", :max_snippets => "4")    
+  end
+  
+end
