@@ -4,9 +4,10 @@ class XTF::Element::Base
   ATTRIBUTE_KEYS.each { |k| attr_accessor k }
   attr_reader   :tag_name
   
+  # Takes a +Hash+ of attributes and sets them. Silently ignores erroneous keys.
   def initialize(*args)
     params = args[0] || {}
-    params.each_pair { |k, v| self.__send__("#{k}=", v) }
+    ATTRIBUTE_KEYS.each { |k| self.__send__("#{k}=", params[k]) }
   end
   
   def attribute_keys
