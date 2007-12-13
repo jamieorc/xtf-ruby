@@ -27,4 +27,11 @@ describe Base do
     @base.max_snippets.should == @attributes[:max_snippets]
     @base.boost.should == @attributes[:boost]
   end
+  
+  it "should silently ignore bogus attributes on instantiation" do
+    attributes = @attributes.merge({:bogus_key => "bogus value"})
+    @base = XTF::Element::Base.new(attributes)
+    @base.attributes.size.should == 3
+    @base.attributes.should == @attributes
+  end
 end
