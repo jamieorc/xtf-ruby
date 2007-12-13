@@ -5,16 +5,28 @@ class XTF::Element::Clause < XTF::Element::Base
   attr_accessor :content
   attr_accessor :section_type #available on all elements except <not> and <facet>
   
-  def initialize(*args)
-    @tag_name = args.shift.to_s if args[0].is_a?(String) or args[0].is_a?(Symbol)
-    super
-    tn = @attributes.delete(:tag_name)
-    @tag_name ||= tn
-    raise ArgumentError, "need tag_name for XTF::Element::Clause" unless @tag_name
-    raise ArgumentError, "tag_name #{@tag_name} not valid for XTF::Element::Clause. Must be one of: #{VALID_TAG_NAMES.join(', ')}" unless VALID_TAG_NAMES.include?(@tag_name)
+  # This is a factory method for creating subclasses directly from +Clause+. 
+  # The tag_name may be passed as the first argument or as the value to the key 
+  # +:tag_name+ or +'tag_name'+
+  def self.create(*args)
+    tag_name = args.shift.to_s if args[0].is_a?(String) || args[0].is_a?(Symbol)
+    params = (args[0] || {}).symbolize_keys
+    tag_name = params.delete(:tag_name) unless tag_name
     
-    @content = @attributes.delete(:content) || []
-    @content = [@content] unless @content.is_a?(Array)
+    raise ArgumentError, "need tag_name for XTF::Element::Clause" unless tag_name
+    raise ArgumentError, "tag_name #{tag_name} not valid for XTF::Element::Clause. Must be one of: #{VALID_TAG_NAMES.join(', ')}" unless VALID_TAG_NAMES.include?(tag_name)
+    
+    klass = eval("XTF::Element::#{tag_name.to_s.camelize}") # scope the name to avoid conflicts, especially with Range
+    klass.new(params)
+  end
+  
+  def initialize(*args)
+    params = args[0] || {}
+    self.content = params.delete(:content) || []
+    super(params)
+    
+    raise ArgumentError, "need tag_name for XTF::Element::Clause (maybe you should call Clause.create(:tag_name) ? )" unless @tag_name
+    raise ArgumentError, "tag_name #{@tag_name} not valid for XTF::Element::Clause. Must be one of: #{VALID_TAG_NAMES.join(', ')}" unless VALID_TAG_NAMES.include?(@tag_name)
   end
   
   def content=(value)

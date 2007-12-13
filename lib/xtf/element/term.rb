@@ -5,12 +5,17 @@ class XTF::Element::Term < XTF::Element::Base
   attr_accessor :value
   attr_accessor :section_type 
 
+  # +new+ accepts an optional first argument for +value+ as well as an optional 
+  # first or second argument +Hash+ of the +Term+'s +attributes+.
+  # +value+ may be passed as the first argument or in attributes +Hash+ with key +:value+.
+  # +section_type+ may be passed in the attributes +Hash+ with key +:section_type+.
   def initialize(*args)
     @tag_name = "term"
     @value = args.shift if args[0].kind_of?(String)
+    params = args[0] || {}
+    @value = params.delete(:value) unless @value
+    @section_type = params.delete(:section_type)
     super
-    val = @attributes.delete(:value)
-    @value ||= val
     @value.strip! unless @value.nil?
   end
   

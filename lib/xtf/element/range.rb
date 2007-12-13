@@ -1,4 +1,4 @@
-class XTF::Element::Range < XTF::Element::Base
+class XTF::Element::Range < XTF::Element::Clause
   
   def initialize(*args)
     @tag_name = "range"
