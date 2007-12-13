@@ -3,16 +3,19 @@ class XTF::Element::Query < XTF::Element::Base
   STYLE_DEFAULT = "style/crossQuery/resultFormatter/default/resultFormatter.xsl"
   INDEX_PATH_DEFAULT = "index"
 
+  attribute_keys :index_path, :style, :sort_docs_by, :start_doc, :max_docs, :term_limit, :work_limit,
+                 :max_context, :max_snippets, :term_mode, :field, :normalize_scores, :explain_scores
+
   attr_accessor :content # one Term or Clause, spellcheck, and any number of facet tags all in an array
 
   def initialize(*args)
     @tag_name = 'query'
-    super
-    @attributes[:style] ||= STYLE_DEFAULT
-    @attributes[:index_path] ||= INDEX_PATH_DEFAULT
+    params = args[0] || {}
+    self.content = params.delete(:content) || []
+    super(params)
     
-    @content = @attributes.delete(:content) || []
-    @content = [@content] unless @content.is_a?(Array)
+    @style ||= STYLE_DEFAULT
+    @index_path ||= INDEX_PATH_DEFAULT
   end
 
   def to_xml_node

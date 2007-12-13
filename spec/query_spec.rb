@@ -22,7 +22,7 @@ describe Query do
     attributes = {:field => "text", :max_snippets => "4", :start_doc => "1", :max_docs => "20"}
     @query = Query.new(attributes)
     @facet = Facet.new("title-facet", :select => "*[1-5]")
-    @clause = Clause.new("and", :content => Term.new("word"))
+    @clause = Clause.create("and", :content => Term.new("word"))
     @query.content << @clause
     @query.content << @facet
     
