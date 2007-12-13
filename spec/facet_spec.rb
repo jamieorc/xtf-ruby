@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 include XTF::Element
 
-describe Facet do
+describe "Facet" do
   it "should have 'tag_name' of 'facet'" do
     @facet = Facet.new("field_name")
     @facet.tag_name.should == 'facet'
@@ -10,9 +10,11 @@ describe Facet do
   
   it "should take the 'field' value as either a String or a Hash argument to 'new'" do
     @facet = Facet.new("value")
+    @facet.field.should == "value"
     @facet.attributes[:field].should == "value"
     
     @f = Facet.new(:field => "value")
+    @f.field.should == "value"
     @f.attributes[:field].should == "value"    
   end
   

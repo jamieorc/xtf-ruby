@@ -17,7 +17,7 @@ class XTF::Element::Base
   # Takes a +Hash+ of attributes and sets them. Silently ignores erroneous keys.
   def initialize(*args)
     params = args[0]
-    attribute_keys.each { |k| self.__send__("#{k}=", params[k]) } if params
+    attribute_keys.each { |k| self.__send__("#{k}=", params[k]) if params.key?(k) } if params
   end
     
   # Returns a +Hash+ of the attributes listed in +ATTRIBUTE_KEYS+ with their values.

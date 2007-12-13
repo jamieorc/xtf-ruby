@@ -26,7 +26,13 @@ describe "Clause.create" do
   
   it "should only accept these tag names: phrase, exact, and, or, or_near, orNear, not, near, range. Otherwise, raise an error" do
     %w{phrase exact and or or_near orNear not near range}.each do |name|
-      lambda { Clause.create(name) }.should_not raise_error(ArgumentError)
+      attributes = case name
+      when "or_near", "orNear", "near"
+        {:slop => "8"}
+      else
+        {}
+      end
+      lambda { Clause.create(name, attributes) }.should_not raise_error(ArgumentError)
     end
     
     %w{other term facet query section_type result_data}.each do |name|
