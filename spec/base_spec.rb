@@ -22,6 +22,13 @@ describe Base do
     @base.attributes.should == @attributes
   end
   
+  it "'attributes' should not include attributes will nil values" do
+    @base.max_snippets = nil
+    @base.attributes.size.should == 2
+    @attributes.delete(:max_snippets)
+    @base.attributes.should == @attributes
+  end
+  
   it "should take attributes as a Hash when instantiated and populate each property." do
     @base.field.should == @attributes[:field]
     @base.max_snippets.should == @attributes[:max_snippets]

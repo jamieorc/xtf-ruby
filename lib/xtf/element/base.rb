@@ -6,8 +6,8 @@ class XTF::Element::Base
   
   # Takes a +Hash+ of attributes and sets them. Silently ignores erroneous keys.
   def initialize(*args)
-    params = args[0] || {}
-    ATTRIBUTE_KEYS.each { |k| self.__send__("#{k}=", params[k]) }
+    params = args[0]
+    ATTRIBUTE_KEYS.each { |k| self.__send__("#{k}=", params[k]) } if params
   end
   
   def attribute_keys
@@ -17,7 +17,10 @@ class XTF::Element::Base
   # Returns a +Hash+ of the attributes listed in +ATTRIBUTE_KEYS+ with their values.
   # The keys are +Symbol+s.
   def attributes
-    self.attribute_keys.inject({}) { |hash, key| hash[key] = self.__send__(key); hash }
+    self.attribute_keys.inject({}) do |hash, key|
+      hash[key] = self.__send__(key) if self.__send__(key)
+      hash
+    end
   end
 
 end
