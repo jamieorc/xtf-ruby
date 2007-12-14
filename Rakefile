@@ -6,7 +6,7 @@ require 'rake/packagetask'
 require 'rake/gempackagetask'
 require 'spec/rake/spectask'
 
-XTF_RB_VERSION = "0.0.1"
+XTF_RUBY_VERSION = "0.0.1"
 
 desc "Run all specs by default"
 task :default => :spec
@@ -17,8 +17,8 @@ Spec::Rake::SpecTask.new('spec') do |t|
 end
 
 spec = Gem::Specification.new do |s|
-  s.name = 'xtf-rb'
-  s.version = XTF_RB_VERSION
+  s.name = 'xtf-ruby'
+  s.version = XTF_RUBY_VERSION
   s.author = 'James (Jamie) Orchard-Hays'
   s.email = 'jamieorc@dangosaur.us'
   s.homepage = 'http://xtf.rubyforge.org'
@@ -45,7 +45,7 @@ namespace :rails do
   task :package => "init.rb" do
     File.rm_f("init.rb")
   end
-  Rake::PackageTask.new("xtf-rb-rails", XTF_RB_VERSION) do |pkg|
+  Rake::PackageTask.new("xtf-ruby-rails", XTF_RUBY_VERSION) do |pkg|
     pkg.need_zip = true
     pkg.need_tar = true
     pkg.package_dir = "pkg/rails"
@@ -60,10 +60,10 @@ namespace :rails do
   end
   
   desc "Install the Rails plugin version into the vendor/plugins dir. Need to set PLUGINS_DIR environment variable."
-  task :install_xtf_rb => :package do
+  task :install => :package do
     plugins_dir = ENV["PLUGINS_DIR"] or raise "You must set PLUGINS_DIR"
-    mkdir File.join(plugins_dir, "xtf-rb-rails-#{XTF_RB_VERSION}/") rescue nil
-    FileUtils.cp_r(File.join("pkg","rails", "xtf-rb-rails-#{XTF_RB_VERSION}/"), plugins_dir)
+    mkdir File.join(plugins_dir, "xtf-ruby-rails-#{XTF_RUBY_VERSION}/") rescue nil
+    FileUtils.cp_r(File.join("pkg","rails", "xtf-ruby-rails-#{XTF_RUBY_VERSION}/"), plugins_dir)
   end
 end
 
