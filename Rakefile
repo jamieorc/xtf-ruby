@@ -49,7 +49,7 @@ namespace :rails do
     pkg.need_zip = true
     pkg.need_tar = true
     pkg.package_dir = "pkg/rails"
-    pkg.package_files.include("lib/**/*.rb", "spec/**/*.rb", "init.rb", "LICENSE.txt", "README")
+    pkg.package_files.include("lib/**/*.rb", "spec/**/*.rb", "init.rb", "LICENSE.txt", "README", "NOTICE.txt")
   end
   
   file "init.rb" do
