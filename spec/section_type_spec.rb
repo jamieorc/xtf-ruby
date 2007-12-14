@@ -15,7 +15,7 @@ describe SectionType do
     @st = SectionType.new(Term.new("word"))
     @st.content.should be_a_kind_of(Term)
     
-    @st = SectionType.new(Clause.new("and"))
+    @st = SectionType.new(Clause.create("and"))
     @st.content.should be_a_kind_of(Clause)
   end
   
@@ -27,7 +27,7 @@ describe SectionType do
   
   it "should render its XML representation properly when 'content' is a Clause" do
     @st = SectionType.new
-    clause = Clause.new("and")
+    clause = Clause.create("and")
     clause.content = [Term.new("word"), Term.new("digit")]
     @st.content = clause
     expected = "<sectionType> <and> <term>word</term> <term>digit</term> </and> </sectionType>"

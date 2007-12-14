@@ -31,7 +31,7 @@ class XTF::Element::Term < XTF::Element::Base
     if self.value =~ /^".*"$/
       terms = self.value.slice(1..-2).split(" ")
       puts terms.inspect
-      phrase = XTF::Element::Clause.new("phrase", self.attributes)
+      phrase = XTF::Element::Phrase.new(self.attributes)
       terms.each { |t| phrase.content << XTF::Element::Term.new(t) }
       phrase.to_xml_node
     else

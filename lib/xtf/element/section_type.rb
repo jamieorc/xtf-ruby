@@ -4,8 +4,8 @@ class XTF::Element::SectionType
   attr_reader :tag_name
   
   def initialize(content = nil)
-    @content = content
     @tag_name = "sectionType"
+    @content = content
   end
   
   def to_xml_node
