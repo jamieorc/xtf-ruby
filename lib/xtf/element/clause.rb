@@ -34,6 +34,7 @@ class XTF::Element::Clause < XTF::Element::Base
     @content = value
   end
   
+  # TODO add section_type
   def to_xml_node
     xml = XTF::XML::Element.new self.tag_name.camelize(:lower)
     self.attributes.each_pair { |key, value| xml.attributes[key.to_s.camelize(:lower)] = value if value}
