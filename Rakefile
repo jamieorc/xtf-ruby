@@ -19,7 +19,7 @@ end
 spec = Gem::Specification.new do |s|
   s.name = 'xtf-rb'
   s.version = XTF_RB_VERSION
-  s.author = 'Jamie Orchard-Hays'
+  s.author = 'James (Jamie) Orchard-Hays'
   s.email = 'jamieorc@dangosaur.us'
   s.homepage = 'http://xtf.rubyforge.org'
   s.platform = Gem::Platform::RUBY
