@@ -17,6 +17,10 @@ class XTF::Element::Clause < XTF::Element::Base
   
   # an Array that contains any number of clauses and/or terms
   attr_accessor :content
+  
+  # convenience to create a +Term+ from a +String+ and insert it into +content+
+  attr_accessor :term
+  
   attr_accessor :section_type #available on all elements except <not> and <facet>
   
   # This is a factory method for creating subclasses directly from +Clause+. 
@@ -37,10 +41,16 @@ class XTF::Element::Clause < XTF::Element::Base
   def initialize(*args)
     params = args[0] || {}
     self.content = params.delete(:content) || []
+    self.term = params.delete(:term) if params.has_key?(:term)
     super(params)
     
     raise ArgumentError, "need tag_name for XTF::Element::Clause (maybe you should call Clause.create(:tag_name) ? )" unless @tag_name
     raise ArgumentError, "tag_name #{@tag_name} not valid for XTF::Element::Clause. Must be one of: #{VALID_TAG_NAMES.join(', ')}" unless VALID_TAG_NAMES.include?(@tag_name)
+  end
+  
+  # Accepts a +Term+ or a +String+ which is converted to a +Term+ and adds it to the +content+.
+  def term=(value)
+    self.content << (value.is_a?(Term) ? value : Term.new(value))
   end
   
   def content=(value)

@@ -37,6 +37,27 @@ describe "Clause.create" do
     @clause = Clause.create(:or)
     @clause.should be_kind_of(XTF::Element::Or)
   end
+    
+  it "should accept :term as a String or Term and create a Term instance in content" do
+    @clause = Clause.create(:or, :term => "word")
+    @clause.content.first.to_xml.should == "<term>word</term>"    
+    @clause.content.first.should be_kind_of(Term)
+    
+    @c2 = Clause.create(:and, :term => Term.new("second"))
+    @c2.content.first.to_xml.should == "<term>second</term>"
+    @c2.content.first.should be_kind_of(Term)
+  end
+  
+  it "should accept 'term=' as a String or Termand create a Term instance in content" do
+    @clause = Clause.create(:or)
+        @clause.term = "word"
+        @clause.content.first.to_xml.should == "<term>word</term>"    
+        @clause.content.first.should be_kind_of(Term)
+        
+        @clause.term = Term.new("second")
+        @clause.content.last.to_xml.should == "<term>second</term>"    
+        @clause.content.last.should be_kind_of(Term)
+  end
   
   it "should only accept these tag names: phrase, exact, and, or, or_near, orNear, not, near, range. Otherwise, raise an error" do
     %w{phrase exact and or or_near orNear not near range}.each do |name|
