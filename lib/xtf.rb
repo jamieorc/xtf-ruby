@@ -14,9 +14,14 @@
 
 module XTF
 end
-require 'rubygems'
 
-require 'active_support'
+# Try loading from local environment, ie vendor/rails, if error, use rubygems
+begin
+  require 'active_support'
+rescue LoadError => e
+  require 'rubygems'
+  require 'active_support'
+end
 
 $:.unshift(File.dirname(__FILE__))
 require 'xtf/element'

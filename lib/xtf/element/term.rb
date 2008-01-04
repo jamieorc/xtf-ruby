@@ -33,7 +33,9 @@ class XTF::Element::Term < XTF::Element::Base
     @value.strip! unless @value.nil?
   end
   
-  # For convenience, if the Term's value is double-quoted, it will be parsed as a Phrase. 
+  # For convenience, if the Term's value has spaces inside, it will be parsed as a Phrase. 
+  # Double quotes on either end will be removed.
+  # 
   # "this phrase" woud yield:
   # 
   #  <phrase>
@@ -42,8 +44,10 @@ class XTF::Element::Term < XTF::Element::Base
   #   </phrase>
   # 
   def to_xml_node
-    if self.value =~ /^".*"$/
-      terms = self.value.slice(1..-2).split(" ")
+    if self.value =~ / /
+      terms = self.value.split(" ")
+      terms.first.gsub!(/^"/, "")
+      terms.last.gsub!(/"$/,"")
       puts terms.inspect
       phrase = XTF::Element::Phrase.new(self.attributes)
       terms.each { |t| phrase.content << XTF::Element::Term.new(t) }

@@ -65,9 +65,12 @@ describe Term do
     @term.to_xml_node.text.should == "term"
   end
 
-  it "should emit a phrase if the Term's value is surrounded by double-quotes" do
+  it "should emit a phrase if the Term's value is has multiple terms separated by a space and strip double quotes at each end" do
     @term = Term.new("\"some phrase\"")
-    puts ERB::Util.h(@term.to_xml)
+    result = @term.to_xml
+    result.should_not match(/"/)
+    result.should match(/<phrase>\s*<term>some<\/term>\s*<term>phrase<\/term>\s*<\/phrase>/)
+    puts ERB::Util.h(result)
   end
 end
 

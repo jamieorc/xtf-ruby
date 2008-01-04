@@ -43,6 +43,8 @@ describe "Clause.create" do
       attributes = case name
       when "or_near", "orNear", "near"
         {:slop => "8"}
+      when "range"
+        {:lower => 1, :upper => 5}
       else
         {}
       end
