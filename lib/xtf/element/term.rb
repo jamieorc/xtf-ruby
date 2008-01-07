@@ -33,7 +33,7 @@ class XTF::Element::Term < XTF::Element::Base
     @value.strip! unless @value.nil?
   end
   
-  # For convenience, if the Term's value has spaces inside, it will be parsed as a Phrase. 
+  # For convenience, if the Term's value matches /[\-\s\\\/]+/, it will be parsed as a Phrase. 
   # Double quotes on either end will be removed.
   # 
   # "this phrase" woud yield:
@@ -44,11 +44,11 @@ class XTF::Element::Term < XTF::Element::Base
   #   </phrase>
   # 
   def to_xml_node
-    if self.value =~ / /
-      terms = self.value.split(" ")
+    delimeters = /[\-\s\\\/]+/
+    if self.value =~ delimeters
+      terms = self.value.split(delimeters)
       terms.first.gsub!(/^"/, "")
       terms.last.gsub!(/"$/,"")
-      puts terms.inspect
       phrase = XTF::Element::Phrase.new(self.attributes)
       terms.each { |t| phrase.content << XTF::Element::Term.new(t) }
       phrase.to_xml_node

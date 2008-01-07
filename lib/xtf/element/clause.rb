@@ -50,7 +50,7 @@ class XTF::Element::Clause < XTF::Element::Base
   
   # Accepts a +Term+ or a +String+ which is converted to a +Term+ and adds it to the +content+.
   def term=(value)
-    self.content << (value.is_a?(Term) ? value : Term.new(value))
+    self.content << (value.is_a?(XTF::Element::Term) ? value : XTF::Element::Term.new(value))
   end
   
   def content=(value)
