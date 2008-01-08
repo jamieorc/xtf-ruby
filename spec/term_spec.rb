@@ -65,11 +65,11 @@ describe Term do
     @term.to_xml_node.text.should == "term"
   end
 
-  it "should emit a phrase if the Term's value is has multiple terms separated by a whitespace, hyphen, forward-slash, back-slash and strip double quotes at each end" do
-    @term = Term.new("\"some phrase with-hyphen forward/slash back\\slash\"")
+  it "should emit a phrase if the Term's value is has multiple terms separated by a whitespace, hyphen, forward-slash, back-slash, period, comma, colon, semi-colon and strip double quotes at each end" do
+    @term = Term.new("\" some phrase with-hyphen forward/slash back\\slash comma, period. colon: semicolon;\"")
     result = @term.to_xml
     result.should_not match(/"/)
-    result.should match(/<phrase>\s*<term>some<\/term>\s*<term>phrase<\/term>\s*<term>with<\/term>\s*<term>hyphen<\/term>\s*<term>forward<\/term>\s*<term>slash<\/term>\s*<term>back<\/term>\s*<term>slash<\/term>\s*<\/phrase>/)
+    result.should match(/<phrase>\s*<term>some<\/term>\s*<term>phrase<\/term>\s*<term>with<\/term>\s*<term>hyphen<\/term>\s*<term>forward<\/term>\s*<term>slash<\/term>\s*<term>back<\/term>\s*<term>slash<\/term>\s*<term>comma<\/term>\s*<term>period<\/term>\s*<term>colon<\/term>\s*<term>semicolon<\/term>\s*<\/phrase>/)
     puts ERB::Util.h(result)
   end
 end
