@@ -32,6 +32,16 @@ class XTF::Element::Query < XTF::Element::Base
     @index_path ||= INDEX_PATH_DEFAULT
   end
 
+  # Accepts a +Term+ or a +String+ which is converted to a +Term+ and adds it to the +content+.
+  def term=(value)
+    self.content << (value.is_a?(XTF::Element::Term) ? value : XTF::Element::Term.new(value))
+  end
+  
+  def content=(value)
+    value = [value] unless value.is_a?(Array)
+    @content = value
+  end
+  
   def to_xml_node
     xml = XTF::XML::Element.new(self.tag_name)
     self.attributes.each_pair { |key, value| xml.attributes[key.to_s.camelize(:lower)] = value if value}

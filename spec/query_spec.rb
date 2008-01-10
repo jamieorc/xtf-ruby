@@ -32,6 +32,17 @@ describe Query do
     @query.attributes[:index_path].should == "index"
   end
   
+  it "should accept content as Term or Clause and insert it into an Array" do
+    @query = Clause.create("and")
+    @query.content.should == []
+    @query.content = Term.new("word")
+    @query.content.should be_a_kind_of(Array)
+    @query.content.size.should be 1
+    @query.content.first.should be_a_kind_of(Term)
+    @query.content.first.value.should == "word"
+  end
+  
+  
   it "should render XTF query xml when 'to_xml' called" do
     attributes = {:field => "text", :max_snippets => "4", :start_doc => "1", :max_docs => "20"}
     @query = Query.new(attributes)
