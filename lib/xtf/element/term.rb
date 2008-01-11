@@ -44,15 +44,9 @@ class XTF::Element::Term < XTF::Element::Base
   #   </phrase>
   # 
   def to_xml_node
-    delimeters = /[\-\s\\\/.,;:]+/
-    if self.value =~ delimeters
-      terms = self.value.split(delimeters)
-      terms.first.gsub!(/^"/, "")
-      terms.shift if terms.first == ""
-      terms.last.gsub!(/"$/,"")
-      terms.pop if terms.last == ""
+    if self.value =~ PHRASE_DELIMITERS
       phrase = XTF::Element::Phrase.new(self.attributes)
-      terms.each { |t| phrase.content << XTF::Element::Term.new(t) }
+      phrase.phrase = self.value
       phrase.to_xml_node
     else
       xml = XTF::XML::Element.new(self.tag_name)

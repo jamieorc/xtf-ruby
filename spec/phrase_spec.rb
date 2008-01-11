@@ -27,4 +27,27 @@ describe "Phrase" do
   it "should have an Array for content()" do
     @phrase.content.should be_kind_of(Array)
   end
+
+  it "should take a :phrase attribute, tokenize it and create Terms" do
+    @phrase = Phrase.new(:phrase => "this is a phrase")
+    result = @phrase.to_xml
+    puts ERB::Util.h(result)
+  end
+end
+
+describe "Phrase#phrase=" do
+  before(:each) do
+    @phrase = Phrase.new()
+  end
+  it "should raise an ArgumentError unless argument is a String" do
+    lambda { @phrase.phrase = :something }.should raise_error(ArgumentError)
+    lambda { @phrase.phrase="some words" }.should_not raise_error(ArgumentError)
+    
+  end
+  
+  it "should take a String, tokenize it and create Terms" do
+    @phrase.phrase = "this is a phrase"
+    result = @phrase.to_xml
+    puts ERB::Util.h(result)
+  end
 end

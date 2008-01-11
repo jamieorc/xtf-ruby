@@ -13,10 +13,25 @@
 # limitations under the License.
 
 class XTF::Element::Phrase < XTF::Element::Clause
-
+  # Takes a +String+ and breaks it up into +Term+s:
+  attr_accessor :phrase
+  
   def initialize(*args)
     @tag_name = "phrase"
-    super
+    params = args[0] || {}
+    _phrase = params.delete(:phrase) 
+    super(params)
+    self.phrase = _phrase if _phrase
+  end
+  
+  def phrase=(terms)
+    raise ArgumentError unless terms.is_a?(String)
+    terms = terms.split(PHRASE_DELIMITERS)
+    terms.first.gsub!(/^"/, "")
+    terms.shift if terms.first == ""
+    terms.last.gsub!(/"$/,"")
+    terms.pop if terms.last == ""
+    terms.each { |t| self.content << XTF::Element::Term.new(t) }    
   end
   
 end

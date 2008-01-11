@@ -27,4 +27,28 @@ describe "Exact" do
   it "should have an Array for content()" do
     @exact.content.should be_kind_of(Array)
   end
+
+  it "should take a :phrase attribute, tokenize it and create Terms" do
+    @exact = Exact.new(:phrase => "this is a phrase")
+    result = @exact.to_xml
+    puts ERB::Util.h(result)
+  end
 end
+
+describe "Exact#phrase=" do
+  before(:each) do
+    @exact = Exact.new()
+  end
+  it "should raise an ArgumentError unless argument is a String" do
+    lambda { @exact.phrase = :something }.should raise_error(ArgumentError)
+    lambda { @exact.phrase="some words" }.should_not raise_error(ArgumentError)
+
+  end
+
+  it "should take a String, tokenize it and create Terms" do
+    @exact.phrase = "this is a phrase"
+    result = @exact.to_xml
+    puts ERB::Util.h(result)
+  end
+end
+
