@@ -17,9 +17,6 @@ require File.dirname(__FILE__) + '/spec_helper'
 include XTF::Element
 
 describe "Term.new" do
-  before(:each) do
-    @term = XTF::Element::Term.new
-  end
   
   it "should accept a hash of attributes" do
     attributes = {:field => "text", :max_snippets => "4"}
@@ -48,6 +45,24 @@ describe "Term.new" do
     @term = Term.new("word", {:value => "NOT_USED"})
     @term.value.should == "word"
     @term.attributes[:value].should be_nil
+  end
+  
+  it "should accept :parse_phrase as parameter." do
+    @term = Term.new({:value => "some phrase", :parse_phrase => false})
+    @term.to_xml.should == "<term>some phrase</term>"
+  end
+end
+
+describe "Term parse_phrase" do
+  it "should not parse a into a phrase if false" do
+    @term = Term.new("some phrase")
+    @term.parse_phrase = false
+    @term.to_xml.should == "<term>some phrase</term>"
+  end
+  
+  it "should default to true" do
+    @term = Term.new("some phrase")
+    @term.parse_phrase.should be_true
   end
 end
 
