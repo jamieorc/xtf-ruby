@@ -26,7 +26,7 @@ class XTF::Element::Phrase < XTF::Element::Clause
   
   def phrase=(terms)
     raise ArgumentError unless terms.is_a?(String)
-    terms = terms.split(PHRASE_DELIMITERS)
+    terms = terms.split(XTF::Element::Constants.phrase_delimiters)
     terms.first.gsub!(/^"/, "")
     terms.shift if terms.first == ""
     terms.last.gsub!(/"$/,"")

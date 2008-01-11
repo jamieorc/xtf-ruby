@@ -44,7 +44,7 @@ class XTF::Element::Term < XTF::Element::Base
   #   </phrase>
   # 
   def to_xml_node
-    if self.value =~ PHRASE_DELIMITERS
+    if self.value =~ XTF::Element::Constants.phrase_delimiters
       phrase = XTF::Element::Phrase.new(self.attributes)
       phrase.phrase = self.value
       phrase.to_xml_node

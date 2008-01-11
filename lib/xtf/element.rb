@@ -14,7 +14,11 @@
 
 module XTF
   module Element
-    PHRASE_DELIMITERS = /[\-\s\\\/.,;:]+/
+    class Constants
+      def self.phrase_delimiters
+        /[\-\s\\\/.,;:]+/
+      end
+    end
   end
 end
 $:.unshift(File.dirname(__FILE__))
