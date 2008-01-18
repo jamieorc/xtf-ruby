@@ -16,7 +16,7 @@ module XTF
   module Element
     class Constants
       def self.phrase_delimiters
-        /[\-\s\\\/.,;:]+/
+        /[\-\s\\\/.,;:()]+/
       end
     end
   end
