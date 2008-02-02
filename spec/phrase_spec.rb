@@ -50,4 +50,9 @@ describe "Phrase#phrase=" do
     result = @phrase.to_xml
     puts ERB::Util.h(result)
   end
+  
+  it "should move solitary wildcard to previous term" do
+    @phrase.phrase="some words,*"
+    @phrase.to_xml.should =~ /<phrase>\s*<term>some<\/term>\s*<term>words\*<\/term>\s*<\/phrase>/
+  end
 end

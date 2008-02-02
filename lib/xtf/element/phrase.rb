@@ -24,6 +24,7 @@ class XTF::Element::Phrase < XTF::Element::Clause
     self.phrase = _phrase if _phrase
   end
   
+  # If the last term is a wildcard, then append it to the previous term.
   def phrase=(terms)
     raise ArgumentError unless terms.is_a?(String)
     terms = terms.split(XTF::Element::Constants.phrase_delimiters)
@@ -31,6 +32,10 @@ class XTF::Element::Phrase < XTF::Element::Clause
     terms.shift if terms.first == ""
     terms.last.gsub!(/"$/,"")
     terms.pop if terms.last == ""
+    if terms.last == "*"
+      terms.pop
+      terms.last << "*"
+    end
     terms.each { |t| self.content << XTF::Element::Term.new(t) }    
   end
   
