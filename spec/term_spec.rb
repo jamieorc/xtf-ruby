@@ -85,7 +85,7 @@ describe Term do
     result = @term.to_xml
     result.should_not match(/"/)
     result.should match(/<phrase>\s*<term>some<\/term>\s*<term>phrase<\/term>\s*<term>with<\/term>\s*<term>hyphen<\/term>\s*<term>forward<\/term>\s*<term>slash<\/term>\s*<term>back<\/term>\s*<term>slash<\/term>\s*<term>comma<\/term>\s*<term>period<\/term>\s*<term>colon<\/term>\s*<term>semicolon<\/term>\s*<\/phrase>/)
-    puts ERB::Util.h(result)
+    puts ERB::Util.h(result) if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
   end
 end
 

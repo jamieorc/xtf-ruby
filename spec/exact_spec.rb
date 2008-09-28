@@ -31,7 +31,7 @@ describe "Exact" do
   it "should take a :phrase attribute, tokenize it and create Terms" do
     @exact = Exact.new(:phrase => "this is a phrase")
     result = @exact.to_xml
-    puts ERB::Util.h(result)
+    puts ERB::Util.h(result) if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
   end
 end
 
@@ -48,7 +48,7 @@ describe "Exact#phrase=" do
   it "should take a String, tokenize it and create Terms" do
     @exact.phrase = "this is a phrase"
     result = @exact.to_xml
-    puts ERB::Util.h(result)
+    puts ERB::Util.h(result) if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
   end
 end
 

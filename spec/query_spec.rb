@@ -57,15 +57,17 @@ describe Query do
       <facet field='title-facet' select='*[1-5]'/>
     </query>
     END
-    puts ERB::Util.h(expected)
-    puts "<br/>"
-    puts ERB::Util.h(@query.to_xml)
+    if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
+      puts ERB::Util.h(expected)
+      puts "<br/>"
+      puts ERB::Util.h(@query.to_xml)
+    end
     
     # TODO these comparisons are not working in the way I expected them to.
 #     REXML::Document.new(@query.to_xml).root.write([]).join('').should == REXML::Document.new(expected).root.write([]).join('')
-#     puts ERB::Util.h(@query.to_xml)
-#     puts ERB::Util.h(REXML::Document.new(expected).root.write([]))
-#     puts ERB::Util.h(REXML::Document.new(@query.to_xml).root.write([]))
+#     puts ERB::Util.h(@query.to_xml) if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
+#     puts ERB::Util.h(REXML::Document.new(expected).root.write([])) if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
+#     puts ERB::Util.h(REXML::Document.new(@query.to_xml).root.write([])) if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
   end
   
 end

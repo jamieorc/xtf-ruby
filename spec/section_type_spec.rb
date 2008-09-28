@@ -45,9 +45,11 @@ describe SectionType do
     clause.content = [Term.new("word"), Term.new("digit")]
     @st.content = clause
     expected = "<sectionType> <and> <term>word</term> <term>digit</term> </and> </sectionType>"
-    puts ERB::Util.h(expected)
-    puts "<br/>"
-    puts ERB::Util.h(@st.to_xml)
+    if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
+      puts ERB::Util.h(expected)
+      puts "<br/>"
+      puts ERB::Util.h(@st.to_xml)
+    end
     
     # TODO these comparisons are not working in the way I expected them to.
 #     REXML::Document.new(@st.to_xml).write([]).first.should == REXML::Document.new(expected).write([]).first

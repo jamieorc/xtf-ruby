@@ -57,6 +57,6 @@ describe "Range.new" do
   
   it "should output proper xml" do
     @range = XTF::Element::Range.new(:lower => "1", :upper => "2", :inclusive => "yes", :numeric => "yes")
-    puts ERB::Util.h(@range.to_xml)
+    puts ERB::Util.h(@range.to_xml) if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
   end
 end

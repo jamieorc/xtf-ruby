@@ -135,9 +135,11 @@ describe Clause do
     expected = "<and maxSnippets='4' field='text'><term>word</term></and>"
     d1 = REXML::Document.new(@clause.to_xml)
     d2 = REXML::Document.new(expected)
-    puts ERB::Util.h(expected)
-    puts "<br/>"
-    puts ERB::Util.h(@clause.to_xml)
+    if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
+      puts ERB::Util.h(expected)
+      puts "<br/>"
+      puts ERB::Util.h(@clause.to_xml)
+    end
     # TODO these comparisons are not working in the way I expected them to.
 #     d1.root.should == d2.root
 

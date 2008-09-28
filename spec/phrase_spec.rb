@@ -31,7 +31,7 @@ describe "Phrase" do
   it "should take a :phrase attribute, tokenize it and create Terms" do
     @phrase = Phrase.new(:phrase => "this is a phrase")
     result = @phrase.to_xml
-    puts ERB::Util.h(result)
+    puts ERB::Util.h(result) if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
   end
 end
 
@@ -48,7 +48,7 @@ describe "Phrase#phrase=" do
   it "should take a String, tokenize it and create Terms" do
     @phrase.phrase = "this is a phrase"
     result = @phrase.to_xml
-    puts ERB::Util.h(result)
+    puts ERB::Util.h(result) if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
   end
   
   it "should move solitary wildcard to previous term" do
