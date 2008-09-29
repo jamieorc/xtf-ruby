@@ -14,14 +14,14 @@
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
-include XTF::Element
+include XTF::Search::Element
 
 describe "Phrase" do
   before(:each) do
     @phrase = Phrase.new()
   end
   it "should have attribute_keys: :field, :max_snippets, :boost" do
-    @phrase.attribute_keys.should == XTF::Element::Base::BASE_ATTRIBUTE_KEYS
+    @phrase.attribute_keys.should == XTF::Search::Element::Base::BASE_ATTRIBUTE_KEYS
   end
   
   it "should have an Array for content()" do

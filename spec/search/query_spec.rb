@@ -14,7 +14,7 @@
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
-include XTF::Element
+include XTF::Search::Element
 
 describe Query do
   it "should have 'tag_name' of 'query'" do

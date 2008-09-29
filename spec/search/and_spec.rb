@@ -14,14 +14,14 @@
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
-include XTF::Element
+include XTF::Search::Element
 
 describe "And" do
   before(:each) do
     @and = And.new()
   end
   it "should have attribute_keys: :field, :fields, :max_snippets, :boost, :use_proximity, :slop" do
-    @and.attribute_keys.should == XTF::Element::Base::BASE_ATTRIBUTE_KEYS + [:fields, :use_proximity, :slop]
+    @and.attribute_keys.should == XTF::Search::Element::Base::BASE_ATTRIBUTE_KEYS + [:fields, :use_proximity, :slop]
   end
   
   it "should have an Array for content()" do

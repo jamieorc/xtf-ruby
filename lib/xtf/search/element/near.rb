@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class XTF::Element::Near < XTF::Element::Clause
+class XTF::Search::Element::Near < XTF::Search::Element::Clause
   attribute_keys BASE_ATTRIBUTE_KEYS, :slop
   
   # +slop+ is required. You can pass it in as the first argument or in the attributes +Hash+

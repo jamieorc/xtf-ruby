@@ -24,5 +24,5 @@ rescue LoadError => e
 end
 
 $:.unshift(File.dirname(__FILE__))
-require 'xtf/element'
+require 'xtf/search'
 require 'xtf/xml'

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class XTF::Element::ResultData
+class XTF::Search::Element::ResultData
   attr_accessor :value
   attr_reader :tag_name
   

@@ -14,14 +14,14 @@
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
-include XTF::Element
+include XTF::Search::Element
 
 describe "Or" do
   before(:each) do
     @or = Or.new()
   end
   it "should have attribute_keys: :field, :fields, :max_snippets, :boost, :slop" do
-    @or.attribute_keys.should == XTF::Element::Base::BASE_ATTRIBUTE_KEYS + [:fields, :slop]
+    @or.attribute_keys.should == XTF::Search::Element::Base::BASE_ATTRIBUTE_KEYS + [:fields, :slop]
   end
   
   it "should have an Array for content()" do

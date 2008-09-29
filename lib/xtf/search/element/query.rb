@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class XTF::Element::Query < XTF::Element::Base
+class XTF::Search::Element::Query < XTF::Search::Element::Base
 
   STYLE_DEFAULT = "style/crossQuery/resultFormatter/default/resultFormatter.xsl"
   INDEX_PATH_DEFAULT = "index"
@@ -34,7 +34,7 @@ class XTF::Element::Query < XTF::Element::Base
 
   # Accepts a +Term+ or a +String+ which is converted to a +Term+ and adds it to the +content+.
   def term=(value)
-    self.content << (value.is_a?(XTF::Element::Term) ? value : XTF::Element::Term.new(value))
+    self.content << (value.is_a?(XTF::Search::Element::Term) ? value : XTF::Search::Element::Term.new(value))
   end
   
   def content=(value)

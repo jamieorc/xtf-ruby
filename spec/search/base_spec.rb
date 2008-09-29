@@ -14,21 +14,21 @@
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
-include XTF::Element
+include XTF::Search::Element
 
 describe Base do
   before(:each) do
     @attributes = {:field => "name", :max_snippets => "6", :boost => "2"}
-    @base = XTF::Element::Base.new(@attributes)
+    @base = XTF::Search::Element::Base.new(@attributes)
   end
 
   it "should have 'BASE_ATTRIBUTE_KEYS' array with 'field', 'max_snippets', 'boost'" do
-    XTF::Element::Base::BASE_ATTRIBUTE_KEYS.length.should == 3
-    XTF::Element::Base::BASE_ATTRIBUTE_KEYS.should == [:field, :max_snippets, :boost]
+    XTF::Search::Element::Base::BASE_ATTRIBUTE_KEYS.length.should == 3
+    XTF::Search::Element::Base::BASE_ATTRIBUTE_KEYS.should == [:field, :max_snippets, :boost]
   end
   
   it "should have 'attribute_keys' equal to BASE_ATTRIBUTE_KEYS" do
-    @base.attribute_keys.should == XTF::Element::Base::BASE_ATTRIBUTE_KEYS
+    @base.attribute_keys.should == XTF::Search::Element::Base::BASE_ATTRIBUTE_KEYS
   end
   
   it "'attributes' should return the attributes listed in BASE_ATTRIBUTE_KEYS in a Hash with their values" do
@@ -51,7 +51,7 @@ describe Base do
   
   it "should silently ignore bogus attributes on instantiation" do
     attributes = @attributes.merge({:bogus_key => "bogus value"})
-    @base = XTF::Element::Base.new(attributes)
+    @base = XTF::Search::Element::Base.new(attributes)
     @base.attributes.size.should == 3
     @base.attributes.should == @attributes
   end

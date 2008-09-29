@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Extends +Near+, as they are identical except for +tag_name+
-class XTF::Element::OrNear < XTF::Element::Near
+class XTF::Search::Element::OrNear < XTF::Search::Element::Near
   attribute_keys BASE_ATTRIBUTE_KEYS, :slop
   
   # +slop+ is required. You can pass it in as the first argument or in the attributes +Hash+

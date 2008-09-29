@@ -14,14 +14,14 @@
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
-include XTF::Element
+include XTF::Search::Element
 
 describe "OrNear" do
   before(:each) do
     @orNear = OrNear.new("8")
   end
   it "should have attribute_keys: :field, :max_snippets, :boost, :slop" do
-    @orNear.attribute_keys.should == XTF::Element::Base::BASE_ATTRIBUTE_KEYS + [:slop]
+    @orNear.attribute_keys.should == XTF::Search::Element::Base::BASE_ATTRIBUTE_KEYS + [:slop]
   end
   
   it "should have an Array for content()" do

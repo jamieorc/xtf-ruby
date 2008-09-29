@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class XTF::Element::Or < XTF::Element::Clause
+class XTF::Search::Element::Or < XTF::Search::Element::Clause
   attribute_keys BASE_ATTRIBUTE_KEYS, :fields, :slop
   
   def initialize(*args)

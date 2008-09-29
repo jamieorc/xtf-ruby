@@ -14,14 +14,14 @@
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
-include XTF::Element
+include XTF::Search::Element
 
 describe "Near" do
   before(:each) do
     @near = Near.new("8")
   end
   it "should have attribute_keys: :field, :max_snippets, :boost, :slop" do
-    @near.attribute_keys.should == XTF::Element::Base::BASE_ATTRIBUTE_KEYS + [:slop]
+    @near.attribute_keys.should == XTF::Search::Element::Base::BASE_ATTRIBUTE_KEYS + [:slop]
   end
   
   it "should have an Array for content()" do

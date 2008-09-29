@@ -14,7 +14,7 @@
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
-include XTF::Element
+include XTF::Search::Element
 
 describe "AllDocs.new" do
   it "should take no arguments and raise error if any passed in" do

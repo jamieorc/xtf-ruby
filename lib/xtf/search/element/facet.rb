@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class XTF::Element::Facet < XTF::Element::Base
+class XTF::Search::Element::Facet < XTF::Search::Element::Base
   attribute_keys :field, :select, :sort_groups_by, :sort_docs_by, :include_empty_groups
     
   # can take a String or Symbol as first argument for required attribute #field

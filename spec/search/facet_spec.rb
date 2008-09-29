@@ -14,7 +14,7 @@
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
-include XTF::Element
+include XTF::Search::Element
 
 describe "Facet" do
   it "should have 'tag_name' of 'facet'" do

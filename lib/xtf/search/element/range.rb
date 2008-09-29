@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class XTF::Element::Range < XTF::Element::Clause
+class XTF::Search::Element::Range < XTF::Search::Element::Clause
 
   attribute_keys BASE_ATTRIBUTE_KEYS, :inclusive, :numeric
 

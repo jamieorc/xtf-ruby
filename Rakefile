@@ -6,7 +6,7 @@ require 'rake/packagetask'
 require 'rake/gempackagetask'
 require 'spec/rake/spectask'
 
-XTF_RUBY_VERSION = "0.1.1"
+XTF_RUBY_VERSION = "0.2.1"
 
 desc "Run all specs by default"
 task :default => :spec

@@ -14,7 +14,7 @@
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
-include XTF::Element
+include XTF::Search::Element
 
 describe "Term.new" do
   
@@ -37,7 +37,7 @@ describe "Term.new" do
   end
   
   it "should accept :section_type as part of the attributes hash and set the accessor's value" do
-    @term = XTF::Element::Term.new(:section_type => "section")
+    @term = XTF::Search::Element::Term.new(:section_type => "section")
     @term.section_type.should == "section"
   end
 
@@ -68,7 +68,7 @@ end
 
 describe Term do
   before(:each) do
-    @term = XTF::Element::Term.new
+    @term = XTF::Search::Element::Term.new
   end
   
   it "should render XTF query xml when 'to_xml' called" do

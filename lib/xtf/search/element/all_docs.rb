@@ -20,7 +20,7 @@
 #   query.content << AllDocs.new
 #   query.content << Facet.new('word')
 # 
-class XTF::Element::AllDocs
+class XTF::Search::Element::AllDocs
   
   attr_reader :tag_name
   

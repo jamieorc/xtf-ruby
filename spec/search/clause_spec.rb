@@ -14,7 +14,7 @@
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
-include XTF::Element
+include XTF::Search::Element
 
 describe "Clause.create" do
   it "should require a tag_name" do
@@ -23,19 +23,19 @@ describe "Clause.create" do
   
   it "should return a subclass derived from the tag_name provided" do
     @clause = Clause.create("and")
-    @clause.class.name.should == "XTF::Element::And"
+    @clause.class.name.should == "XTF::Search::Element::And"
   end
   
   it "should accept the tag_name as first argument or as part of attributes Hash" do
     @clause = Clause.create("and")
-    @clause.should be_kind_of(XTF::Element::And)
+    @clause.should be_kind_of(XTF::Search::Element::And)
     @clause = Clause.create(:tag_name => "and")
-    @clause.should be_kind_of(XTF::Element::And)
+    @clause.should be_kind_of(XTF::Search::Element::And)
   end
   
   it "should accept tag_name as Symbol if first argument" do
     @clause = Clause.create(:or)
-    @clause.should be_kind_of(XTF::Element::Or)
+    @clause.should be_kind_of(XTF::Search::Element::Or)
   end
     
   it "should accept :term as a String or Term and create a Term instance in content" do

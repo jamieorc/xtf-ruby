@@ -13,14 +13,12 @@
 # limitations under the License.
 
 module XTF
-  module Element
-    class Constants
-      def self.phrase_delimiters
-        /[\-\s\\\/.,;:()]+/
-      end
+  module Search
+    module Element
     end
   end
 end
+
 $:.unshift(File.dirname(__FILE__))
 require 'element/base'
 require 'element/section_type'

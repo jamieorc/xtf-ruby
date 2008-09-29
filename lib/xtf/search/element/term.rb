@@ -15,7 +15,7 @@
 # Models a single XTF Term. However, if the term is surrounded by double-quotes, then
 # a Phrase will be emitted for to_xml_node().
 
-class XTF::Element::Term < XTF::Element::Base
+class XTF::Search::Element::Term < XTF::Search::Element::Base
   attr_accessor :value
   attr_accessor :section_type 
   
@@ -48,8 +48,8 @@ class XTF::Element::Term < XTF::Element::Base
   #   </phrase>
   # 
   def to_xml_node
-    if self.parse_phrase && self.value =~ XTF::Element::Constants.phrase_delimiters
-      phrase = XTF::Element::Phrase.new(self.attributes)
+    if self.parse_phrase && self.value =~ XTF::Search::Constants.phrase_delimiters
+      phrase = XTF::Search::Element::Phrase.new(self.attributes)
       phrase.phrase = self.value
       phrase.to_xml_node
     else

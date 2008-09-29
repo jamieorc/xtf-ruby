@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class XTF::Element::Not < XTF::Element::Clause
+class XTF::Search::Element::Not < XTF::Search::Element::Clause
   def initialize(*args)
     @tag_name = "not"
     super

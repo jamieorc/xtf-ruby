@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class XTF::Element::Phrase < XTF::Element::Clause
+class XTF::Search::Element::Phrase < XTF::Search::Element::Clause
   # Takes a +String+ and breaks it up into +Term+s:
   attr_accessor :phrase
   
@@ -27,7 +27,7 @@ class XTF::Element::Phrase < XTF::Element::Clause
   # If the last term is a wildcard, then append it to the previous term.
   def phrase=(terms)
     raise ArgumentError unless terms.is_a?(String)
-    terms = terms.split(XTF::Element::Constants.phrase_delimiters)
+    terms = terms.split(XTF::Search::Constants.phrase_delimiters)
     terms.first.gsub!(/^"/, "")
     terms.shift if terms.first == ""
     terms.last.gsub!(/"$/,"")
@@ -36,7 +36,7 @@ class XTF::Element::Phrase < XTF::Element::Clause
       terms.pop
       terms.last << "*"
     end
-    terms.each { |t| self.content << XTF::Element::Term.new(t) }    
+    terms.each { |t| self.content << XTF::Search::Element::Term.new(t) }    
   end
   
 end

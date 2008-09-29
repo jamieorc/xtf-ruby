@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class XTF::Element::Clause < XTF::Element::Base
+class XTF::Search::Element::Clause < XTF::Search::Element::Base
   VALID_TAG_NAMES = %w{phrase exact and or or_near orNear not near range}
   
   # an Array that contains any number of clauses and/or terms
@@ -31,10 +31,10 @@ class XTF::Element::Clause < XTF::Element::Base
     params = (args[0] || {}).symbolize_keys
     tag_name = params.delete(:tag_name) unless tag_name
     
-    raise ArgumentError, "need tag_name for XTF::Element::Clause" unless tag_name
-    raise ArgumentError, "tag_name #{tag_name} not valid for XTF::Element::Clause. Must be one of: #{VALID_TAG_NAMES.join(', ')}" unless VALID_TAG_NAMES.include?(tag_name)
+    raise ArgumentError, "need tag_name for XTF::Search::Element::Clause" unless tag_name
+    raise ArgumentError, "tag_name #{tag_name} not valid for XTF::Search::Element::Clause. Must be one of: #{VALID_TAG_NAMES.join(', ')}" unless VALID_TAG_NAMES.include?(tag_name)
     
-    klass = eval("XTF::Element::#{tag_name.to_s.camelize}") # scope the name to avoid conflicts, especially with Range
+    klass = eval("XTF::Search::Element::#{tag_name.to_s.camelize}") # scope the name to avoid conflicts, especially with Range
     klass.new(params)
   end
   
@@ -44,13 +44,13 @@ class XTF::Element::Clause < XTF::Element::Base
     self.term = params.delete(:term) if params.has_key?(:term)
     super(params)
     
-    raise ArgumentError, "need tag_name for XTF::Element::Clause (maybe you should call Clause.create(:tag_name) ? )" unless @tag_name
-    raise ArgumentError, "tag_name #{@tag_name} not valid for XTF::Element::Clause. Must be one of: #{VALID_TAG_NAMES.join(', ')}" unless VALID_TAG_NAMES.include?(@tag_name)
+    raise ArgumentError, "need tag_name for XTF::Search::Element::Clause (maybe you should call Clause.create(:tag_name) ? )" unless @tag_name
+    raise ArgumentError, "tag_name #{@tag_name} not valid for XTF::Search::Element::Clause. Must be one of: #{VALID_TAG_NAMES.join(', ')}" unless VALID_TAG_NAMES.include?(@tag_name)
   end
   
   # Accepts a +Term+ or a +String+ which is converted to a +Term+ and adds it to the +content+.
   def term=(value)
-    self.content << (value.is_a?(XTF::Element::Term) ? value : XTF::Element::Term.new(value))
+    self.content << (value.is_a?(XTF::Search::Element::Term) ? value : XTF::Search::Element::Term.new(value))
   end
   
   def content=(value)

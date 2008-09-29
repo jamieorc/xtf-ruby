@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class XTF::Element::SectionType
+class XTF::Search::Element::SectionType
   
   attr_accessor :content # one Term or Clause
   attr_reader :tag_name
