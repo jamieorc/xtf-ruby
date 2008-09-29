@@ -60,9 +60,9 @@ describe "Term parse_phrase" do
     @term.to_xml.should == "<term>some phrase</term>"
   end
   
-  it "should default to true" do
+  it "should default to false" do
     @term = Term.new("some phrase")
-    @term.parse_phrase.should be_true
+    @term.parse_phrase.should be_false
   end
 end
 
@@ -80,8 +80,8 @@ describe Term do
     @term.to_xml_node.text.should == "term"
   end
 
-  it "should emit a phrase if the Term's value is has multiple terms separated by a whitespace, hyphen, forward-slash, back-slash, period, comma, colon, semi-colon and strip double quotes at each end" do
-    @term = Term.new("\" some phrase with-hyphen forward/slash back\\slash comma, period. colon: semicolon;\"")
+  it "should emit a phrase if the Term's value is has multiple terms separated by a whitespace, hyphen, forward-slash, back-slash, period, comma, colon, semi-colon and strip double quotes at each end and :parse_phrase set to true" do
+    @term = Term.new("\" some phrase with-hyphen forward/slash back\\slash comma, period. colon: semicolon;\"", :parse_phrase => true)
     result = @term.to_xml
     result.should_not match(/"/)
     result.should match(/<phrase>\s*<term>some<\/term>\s*<term>phrase<\/term>\s*<term>with<\/term>\s*<term>hyphen<\/term>\s*<term>forward<\/term>\s*<term>slash<\/term>\s*<term>back<\/term>\s*<term>slash<\/term>\s*<term>comma<\/term>\s*<term>period<\/term>\s*<term>colon<\/term>\s*<term>semicolon<\/term>\s*<\/phrase>/)

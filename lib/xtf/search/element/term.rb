@@ -32,7 +32,7 @@ class XTF::Search::Element::Term < XTF::Search::Element::Base
     params = args[0] || {}
     @value = params.delete(:value) unless @value
     @section_type = params.delete(:section_type)
-    @parse_phrase = params.key?(:parse_phrase) ? params.delete(:parse_phrase) : true
+    @parse_phrase = params.key?(:parse_phrase) ? params.delete(:parse_phrase) : false
     super
     @value.strip! unless @value.nil?
   end
