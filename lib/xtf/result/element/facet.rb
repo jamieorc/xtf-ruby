@@ -38,6 +38,6 @@ class XTF::Result::Element::Result
     @total_groups = @doc.at('/facet')['totalGroups']
     @total_docs = @doc.at('/facet')['totalDocs']
   
-    @groups = @doc.search('/facet/group').collect { |h| XTF::Results::Element::Group.new(h, @query) }.compact
+    @groups = @doc.search('/facet/group').collect { |h| XTF::Result::Element::Group.new(h, @query) }.compact
   end
 end
