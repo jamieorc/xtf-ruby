@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class XTF::Result::Element::Result
+class XTF::Result::Element::Facet
 #   require 'rubygems'
 #   require 'libxml_helper'
   attr_reader :query,
