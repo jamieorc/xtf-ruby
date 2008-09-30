@@ -1,4 +1,4 @@
-# Copyright 2007 James (Jamie) Orchard-Hays
+# Copyright 2008 James (Jamie) Orchard-Hays
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,17 +13,16 @@
 # limitations under the License.
 
 module XTF
+  module Result
+    module Element
+    end
+  end
 end
-
-# Try loading from local environment, ie vendor/rails, if error, use rubygems
-begin
-  require 'active_support'
-rescue LoadError => e
-  require 'rubygems'
-  require 'active_support'
-end
-
 $:.unshift(File.dirname(__FILE__))
-require 'xtf/xml'
-require 'xtf/search'
-require 'xtf/result'
+require 'element/base'
+require 'element/doc_hit'
+require 'element/group'
+require 'element/facet'
+require 'element/result'
+#Dir[File.dirname(__FILE__) + "/element/*.rb"].each { |file| require(file) }
+

@@ -47,6 +47,42 @@ begin
       self.content
     end
   end
+
+  # Some Hpricot-like convenience methods for LibXml
+  class XML::Document
+    def self.parse_string(xml)
+      xml_parser = XML::Parser.new
+      xml_parser.string = xml
+      xml_parser.parse
+    end
+  end
+
+  class XML::Node
+    def at(xpath)
+      self.find_first(xpath)
+    end
+
+    # find the array of child nodes matching the given xpath
+    # TODO add these to Rexml?
+    def search(xpath)
+      results = self.find(xpath).to_a
+      if block_given?
+        results.each do |result|
+          yield result
+        end
+      end
+      return results
+    end
+
+    def inner_xml
+      child.to_s
+    end
+    alias inner_html inner_xml
+
+    def inner_text
+      self.content
+    end
+  end #XML::Node
   
   # And use XML::Node for our XML generation
   XTF::XML::Element = XML::Node
