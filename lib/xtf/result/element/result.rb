@@ -57,7 +57,7 @@ class XTF::Result::Element::Result
     # TODO deal with PDFS. This currently filters them from the results
     @doc_hits = @doc.search('./docHit').collect { |h| XTF::Result::Element::DocHit.create(h, @query) }.compact
         
-    @facets = @doc.search('/crossQueryResult/facet').collect { |f| Xtf::Result::Element::Facet.new(f, @query) }
+    @facets = @doc.search('/crossQueryResult/facet').collect { |f| XTF::Result::Element::Facet.new(f, @query) }
   end
   
   def empty?
