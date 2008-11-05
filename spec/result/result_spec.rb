@@ -98,7 +98,7 @@ describe "Result" do
     @doc.last_start_doc.should == "1"
   end
   
-  it "'total_pages' should return the total number of pages bases on result count and docs per page" do
+  it "'total_pages' should return the total number of pages based on result count and docs per page" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     @doc.instance_variable_set(:@start_doc, "1")
     @doc.instance_variable_set(:@docs_per_page, "20")
