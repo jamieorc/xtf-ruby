@@ -51,8 +51,7 @@ begin
   # Some Hpricot-like convenience methods for LibXml
   class XML::Document
     def self.parse_string(xml)
-      xml_parser = XML::Parser.new
-      xml_parser.string = xml
+      xml_parser = XML::Parser.string(xml)
       xml_parser.parse
     end
   end
