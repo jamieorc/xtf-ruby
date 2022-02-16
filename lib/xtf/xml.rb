@@ -1,11 +1,11 @@
 # Copyright 2007 James (Jamie) Orchard-Hays
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #   http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +18,7 @@ module XTF::XML
 end
 
 begin
-  
+
   # If we can load rubygems and libxml-ruby...
   require 'rubygems'
   require 'xml/libxml'
@@ -35,12 +35,12 @@ begin
     alias_method :add_element, :<<
 
     # element.attributes['blah'] should work
-    def attributes
-      self
-    end
-    
+    # def attributes
+    #   self
+    # end
+
     def size
-      self.properties.to_a.size
+      self.attributes.length
     end
     alias :length :size
 
@@ -48,7 +48,7 @@ begin
     def text=(x)
       self << x.to_s
     end
-    
+
     def text
       self.content
     end
@@ -88,14 +88,14 @@ begin
       self.content
     end
   end #XML::Node
-  
+
   # And use XML::Node for our XML generation
   XTF::XML::Element = XML::Node
 #   raise LoadError
 rescue LoadError => e # If we can't load either rubygems or libxml-ruby
-  
+
   # Just use REXML.
   require 'rexml/document'
   XTF::XML::Element = REXML::Element
-  
+
 end
