@@ -31,8 +31,6 @@ Gem::Specification.new do |s|
   s.executables = s.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  # Uncomment to register a new dependency of your gem
-  # s.add_dependency "example-gem", "~> 1.0"
   s.add_dependency "libxml-ruby", "~> 3.2"
   s.add_dependency "activesupport"
 
