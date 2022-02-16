@@ -27,3 +27,4 @@ $:.unshift(File.dirname(__FILE__))
 require 'xtf/xml'
 require 'xtf/search'
 require 'xtf/result'
+require "active_support/core_ext/string"
