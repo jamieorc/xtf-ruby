@@ -22,7 +22,13 @@ begin
   # If we can load rubygems and libxml-ruby...
   require 'rubygems'
   require 'xml/libxml'
-  
+
+  class XML::Attributes
+    def size
+      length
+    end
+  end
+
   # then make a few modifications to XML::Node so it can stand in for REXML::Element
   class XML::Node
     # element.add_element(another_element) should work
