@@ -1,52 +1,55 @@
 # Copyright 2008 James (Jamie) Orchard-Hays
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #   http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
-describe "XtfDocHit#pages" do
-  it "should be empty string if 'first_page' and 'last_page' are empty" do
-    
+RSpec.describe "XTFDocHit" do
+  describe "XTFDocHit#pages" do
+    it "should be empty string if 'first_page' and 'last_page' are empty" do
+
+    end
+  end
+
+  describe "XTFDocHit#query_with_all_snippets" do
+    it "should replace maxSnippets value with '-1'" do
+      @hit = XTF::Result::Element::DocHit.new(XML_DOC_HIT)
+      @hit.instance_variable_set(:@query, %Q{<query style="style/crossQuery/resultFormatter/default/resultFormatter.xsl" startDoc="1" maxDocs="50" indexPath="index"><and maxSnippets="3"><term field="text">good</term></query>})
+      expect(@hit.query_with_all_snippets).to eq %Q{<query style="style/crossQuery/resultFormatter/default/resultFormatter.xsl" startDoc="1" maxDocs="50" indexPath="index"><and maxSnippets="-1"><term field="text">good</term></query>}
+    end
+  end
+
+  describe XTF::Result::Element::DocHit do
+    before(:each) do
+    end
+
+    it "should parse the xml correctly" do
+      @hit = XTF::Result::Element::DocHit.new(XML_DOC_HIT)
+
+      expect(@hit.rank).to eq "1"
+      expect(@hit.raw_path).to eq "default:beq/15-4/beq.div.15.4.66.xml"
+      expect(@hit.path).to eq @hit.raw_path
+      expect(@hit.score).to eq "100"
+      expect(@hit.total_hits).to eq "104"
+
+      expect(@hit.raw_snippets.size).to eq 3
+      expect(@hit.raw_snippets[0]).to eq XML::Document.parse_string('<snippet rank="1" score="100" sectionType="head ">Case 4: The <hit><term>Good</term></hit> Bigot</snippet>').root.to_s
+      expect(@hit.raw_snippets[1]).to eq XML::Document.parse_string('<snippet rank="2" score="21">with excellence, focusing on those internal <hit><term>goods</term></hit> thereby obtainable, while warding off threats</snippet>').root.to_s
+      expect(@hit.raw_snippets[2]).to eq XML::Document.parse_string('<snippet rank="3" score="21">its own inordinate pursuit of external <hit><term>goods</term></hit> and from the corrupting power of other institutions</snippet>').root.to_s
+    end
   end
 end
 
-describe "XtfDocHit#query_with_all_snippets" do
-  it "should replace maxSnippets value with '-1'" do
-    @hit = XTF::Result::Element::DocHit.new(XML_DOC_HIT)
-    @hit.instance_variable_set(:@query, %Q{<query style="style/crossQuery/resultFormatter/default/resultFormatter.xsl" startDoc="1" maxDocs="50" indexPath="index"><and maxSnippets="3"><term field="text">good</term></query>})
-    @hit.query_with_all_snippets.should == %Q{<query style="style/crossQuery/resultFormatter/default/resultFormatter.xsl" startDoc="1" maxDocs="50" indexPath="index"><and maxSnippets="-1"><term field="text">good</term></query>}
-  end
-end
-
-describe XTF::Result::Element::DocHit do
-  before(:each) do
-  end
-
-  it "should parse the xml correctly" do
-    @hit = XTF::Result::Element::DocHit.new(XML_DOC_HIT)
-    
-    @hit.rank.should == "1"
-    @hit.raw_path.should == "default:beq/15-4/beq.div.15.4.66.xml"
-    @hit.path.should == @hit.raw_path
-    @hit.score.should == "100"
-    @hit.total_hits.should == "104"
-
-    @hit.raw_snippets.size.should == 3
-    @hit.raw_snippets[0].should == XML::Document.parse_string('<snippet rank="1" score="100" sectionType="head ">Case 4: The <hit><term>Good</term></hit> Bigot</snippet>').root.to_s
-    @hit.raw_snippets[1].should == XML::Document.parse_string('<snippet rank="2" score="21">with excellence, focusing on those internal <hit><term>goods</term></hit> thereby obtainable, while warding off threats</snippet>').root.to_s
-    @hit.raw_snippets[2].should == XML::Document.parse_string('<snippet rank="3" score="21">its own inordinate pursuit of external <hit><term>goods</term></hit> and from the corrupting power of other institutions</snippet>').root.to_s
-  end
-end
 
 QUERY =<<END
 <query style="style/crossQuery/resultFormatter/default/resultFormatter.xsl" indexPath="index" startDoc="1" maxDocs="50">
@@ -245,7 +248,7 @@ HIT =<<END
       <last-page>382</last-page>
       <abstract>Abstract: I consider <snippet rank="1" score="100">three questions concerning the relation of the <hit>
                <term>good</term>
-            </hit> will to the moral worth</snippet> 
+            </hit> will to the moral worth</snippet>
          <snippet rank="2" score="100">of actions. (1) Does a <hit>
 
                <term>good</term>

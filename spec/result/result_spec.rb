@@ -1,24 +1,25 @@
 # Copyright 2008 James (Jamie) Orchard-Hays
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #   http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
+require "cgi"
 
 # include XTF::Search::Element
 class XTF::Result::Element::DocHit
-  
+
 end
-describe "Result" do
+RSpec.describe "Result" do
 
   before(:each) do
 #     XTF::Search::Element::Base.new
@@ -28,26 +29,26 @@ describe "Result" do
 
   it "should have query_time, total_docs, start_doc, end_doc" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
-    @doc.query_time.should == "0.36"
-    @doc.total_docs.should == "206"
-    @doc.start_doc.should == "1"
-    @doc.end_doc.should == "3"
-    @doc.docs_per_page.should == "20"
+    expect(@doc.query_time).to eq "0.36"
+    expect(@doc.total_docs).to eq "206"
+    expect(@doc.start_doc).to eq "1"
+    expect(@doc.end_doc).to eq "3"
+    expect(@doc.docs_per_page).to eq "20"
   end
-  
+
   it "'next_start_doc' should return sum of 'start_doc' and 'docs_per_page'" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     @doc.instance_variable_set(:@start_doc, "21")
     @doc.instance_variable_set(:@docs_per_page, "20")
-    @doc.next_start_doc.should == "41"
+    expect(@doc.next_start_doc).to eq "41"
   end
-  
+
   it "'next_start_doc' should return 'start_doc' if sum of 'start_doc' and 'docs_per_page' is more than 'total_docs'" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     @doc.instance_variable_set(:@start_doc, "21")
     @doc.instance_variable_set(:@docs_per_page, "20")
     @doc.instance_variable_set(:@total_docs, "40")
-    @doc.next_start_doc.should == "21"
+    expect(@doc.next_start_doc).to eq "21"
   end
 
   it "'next_page_query_string' should return an accurate query string" do
@@ -55,21 +56,21 @@ describe "Result" do
     @doc.instance_variable_set(:@start_doc, "21")
     @doc.instance_variable_set(:@docs_per_page, "20")
     @doc.instance_variable_set(:@total_docs, "60")
-    CGI::parse(@doc.next_page_query_string).should == {"docsPerPage" => ["20"], "startDoc" => ["41"]}
+    expect(CGI::parse(@doc.next_page_query_string)).to include("docsPerPage" => ["20"], "startDoc" => ["41"])
   end
-  
+
   it "'previous_start_doc' should return difference of 'start_doc' and 'docs_per_page'" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     @doc.instance_variable_set(:@start_doc, "21")
     @doc.instance_variable_set(:@docs_per_page, "20")
-    @doc.previous_start_doc.should == "1"
+    expect(@doc.previous_start_doc).to eq "1"
   end
-  
+
   it "'previous_start_doc' should return '1' if difference of 'start_doc' and 'docs_per_page' is less than 1" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     @doc.instance_variable_set(:@start_doc, "1")
     @doc.instance_variable_set(:@docs_per_page, "20")
-    @doc.previous_start_doc.should == "1"
+    expect(@doc.previous_start_doc).to eq "1"
   end
 
   it "'previous_page_query_string' should return an accurate query string" do
@@ -77,132 +78,132 @@ describe "Result" do
     @doc.instance_variable_set(:@start_doc, "21")
     @doc.instance_variable_set(:@docs_per_page, "20")
     @doc.instance_variable_set(:@total_docs, "60")
-    CGI::parse(@doc.previous_page_query_string).should == {"docsPerPage" => ["20"], "startDoc" => ["1"]}
+    expect(CGI::parse(@doc.previous_page_query_string)).to include("docsPerPage" => ["20"], "startDoc" => ["1"])
   end
-  
+
   it "'last_start_doc' should return the number of the document that starts the last page" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     @doc.instance_variable_set(:@start_doc, "1")
     @doc.instance_variable_set(:@docs_per_page, "20")
-    
+
     @doc.instance_variable_set(:@total_docs, "97")
-    @doc.last_start_doc.should == "81"
-    
+    expect(@doc.last_start_doc).to eq "81"
+
     @doc.instance_variable_set(:@total_docs, "100")
-    @doc.last_start_doc.should == "81"
-    
+    expect(@doc.last_start_doc).to eq "81"
+
     @doc.instance_variable_set(:@total_docs, "101")
-    @doc.last_start_doc.should == "101"
-    
+    expect(@doc.last_start_doc).to eq "101"
+
     @doc.instance_variable_set(:@total_docs, "1")
-    @doc.last_start_doc.should == "1"
+    expect(@doc.last_start_doc).to eq "1"
   end
-  
+
   it "'total_pages' should return the total number of pages based on result count and docs per page" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     @doc.instance_variable_set(:@start_doc, "1")
     @doc.instance_variable_set(:@docs_per_page, "20")
-    
+
     @doc.instance_variable_set(:@total_docs, "97")
-    @doc.total_pages.should == "5"
-    
+    expect(@doc.total_pages).to eq "5"
+
     @doc.instance_variable_set(:@total_docs, "100")
-    @doc.total_pages.should == "5"
-    
+    expect(@doc.total_pages).to eq "5"
+
     @doc.instance_variable_set(:@total_docs, "101")
-    @doc.total_pages.should == "6"
-    
+    expect(@doc.total_pages).to eq "6"
+
     @doc.instance_variable_set(:@total_docs, "1")
-    @doc.total_pages.should == "1"
-    
+    expect(@doc.total_pages).to eq "1"
+
     # 50 docs per page
     @doc.instance_variable_set(:@docs_per_page, "50")
-    
+
     @doc.instance_variable_set(:@total_docs, "97")
-    @doc.total_pages.should == "2"
-    
+    expect(@doc.total_pages).to eq "2"
+
     @doc.instance_variable_set(:@total_docs, "100")
-    @doc.total_pages.should == "2"
-    
+    expect(@doc.total_pages).to eq "2"
+
     @doc.instance_variable_set(:@total_docs, "101")
-    @doc.total_pages.should == "3"
-    
+    expect(@doc.total_pages).to eq "3"
+
     @doc.instance_variable_set(:@total_docs, "1")
-    @doc.total_pages.should == "1"
+    expect(@doc.total_pages).to eq "1"
   end
-  
+
   it "'start_doc_for_page' should return 'last_start_doc' if page >= 'total_pages'" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     @doc.instance_variable_set(:@start_doc, "1")
     @doc.instance_variable_set(:@docs_per_page, "20")
-    
+
     @doc.instance_variable_set(:@total_docs, "97")
-    @doc.start_doc_for_page(6).should == "81"
-    @doc.start_doc_for_page(5).should == "81"
-    @doc.start_doc_for_page(4).should_not == "81"    
+    expect(@doc.start_doc_for_page(6)).to eq "81"
+    expect(@doc.start_doc_for_page(5)).to eq "81"
+    expect(@doc.start_doc_for_page(4)).not_to eq "81"
   end
-  
+
   it "'start_doc_for_page' should return 'start_doc' if page <= 1" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     @doc.instance_variable_set(:@start_doc, "1")
     @doc.instance_variable_set(:@docs_per_page, "20")
-    
+
     @doc.instance_variable_set(:@total_docs, "97")
-    @doc.start_doc_for_page(1).should == "1"
-    @doc.start_doc_for_page(0).should == "1"
-    @doc.start_doc_for_page(4).should_not == "1"    
+    expect(@doc.start_doc_for_page(1)).to eq "1"
+    expect(@doc.start_doc_for_page(0)).to eq "1"
+    expect(@doc.start_doc_for_page(4)).not_to eq "1"
   end
 
   it "'start_doc_for_page' should return proper start doc number" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     @doc.instance_variable_set(:@start_doc, "1")
     @doc.instance_variable_set(:@docs_per_page, "20")
-    
+
     @doc.instance_variable_set(:@total_docs, "97")
-    @doc.start_doc_for_page(2).should == "21"
-    @doc.start_doc_for_page(3).should == "41"
-    @doc.start_doc_for_page(4).should == "61"
-    @doc.start_doc_for_page(5).should == "81"
-    
+    expect(@doc.start_doc_for_page(2)).to eq "21"
+    expect(@doc.start_doc_for_page(3)).to eq "41"
+    expect(@doc.start_doc_for_page(4)).to eq "61"
+    expect(@doc.start_doc_for_page(5)).to eq "81"
+
     @doc.instance_variable_set(:@docs_per_page, "50")
     @doc.instance_variable_set(:@total_docs, "107")
-    @doc.start_doc_for_page(2).should == "51"
-    @doc.start_doc_for_page(3).should == "101"
+    expect(@doc.start_doc_for_page(2)).to eq "51"
+    expect(@doc.start_doc_for_page(3)).to eq "101"
   end
 
   it "'current_page' should return correct page for current result set." do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     @doc.instance_variable_set(:@docs_per_page, "20")
     @doc.instance_variable_set(:@total_docs, "97")
-    
+
     @doc.instance_variable_set(:@start_doc, "1")
-    @doc.current_page.should == "1"
-    
+    expect(@doc.current_page).to eq "1"
+
     @doc.instance_variable_set(:@start_doc, "21")
-    @doc.current_page.should == "2"
-    
+    expect(@doc.current_page).to eq "2"
+
     @doc.instance_variable_set(:@start_doc, "41")
-    @doc.current_page.should == "3"
-    
+    expect(@doc.current_page).to eq "3"
+
     @doc.instance_variable_set(:@start_doc, "61")
-    @doc.current_page.should == "4"
-    
+    expect(@doc.current_page).to eq "4"
+
     @doc.instance_variable_set(:@start_doc, "81")
-    @doc.current_page.should == "5"
+    expect(@doc.current_page).to eq "5"
   end
 
   it "should have query and it should match the xml returned" do
     @doc = XTF::Result::Element::Result.new(XML_DOC)
     expected = XML::Document.parse_string(XML_DOC).root.at("//query").to_s.gsub(/\s+/, ' ')
-    @doc.query.gsub(/\s+/, ' ').should == expected
+    expect(@doc.query.gsub(/\s+/, ' ')).to eq expected
   end
-  
+
   it "'hits' should be a list of DocHit instances" do
     @doc = XTF::Result::Element::Result.new(XML_DOC_OR_EXCLUDE)
-    @doc.hits.length.should == 3
-    @doc.hits.each { |h| h.class.should == XTF::Result::Element::DocHit }
+    expect(@doc.hits.length).to eq 3
+    @doc.hits.each { |h| expect(h.class).to eq XTF::Result::Element::DocHit }
   end
-  
+
 end
 XML_DOC =<<-END
 <?xml version="1.0" encoding="UTF-8"?>
