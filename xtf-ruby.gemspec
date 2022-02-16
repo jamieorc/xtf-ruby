@@ -33,12 +33,12 @@ Gem::Specification.new do |s|
 
   # Uncomment to register a new dependency of your gem
   # s.add_dependency "example-gem", "~> 1.0"
-  s.add_dependency "libxml-ruby"
+  s.add_dependency "libxml-ruby", "~> 3.2"
   s.add_dependency "activesupport"
 
   s.add_development_dependency "rake", "~> 13.0"
   s.add_development_dependency "rspec", "~> 3.0"
-  s.add_development_dependency "rexml"
+  s.add_development_dependency "rexml", "~> 3.2"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
