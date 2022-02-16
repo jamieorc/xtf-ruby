@@ -1,0 +1,50 @@
+PATH
+  remote: .
+  specs:
+    xtf-ruby (1.0.0)
+      activesupport
+      libxml-ruby
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activesupport (7.0.2.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+    concurrent-ruby (1.1.9)
+    diff-lcs (1.5.0)
+    i18n (1.10.0)
+      concurrent-ruby (~> 1.0)
+    libxml-ruby (3.2.2)
+    minitest (5.15.0)
+    rake (13.0.6)
+    rexml (3.2.3.1)
+    rspec (3.11.0)
+      rspec-core (~> 3.11.0)
+      rspec-expectations (~> 3.11.0)
+      rspec-mocks (~> 3.11.0)
+    rspec-core (3.11.0)
+      rspec-support (~> 3.11.0)
+    rspec-expectations (3.11.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.11.0)
+    rspec-mocks (3.11.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.11.0)
+    rspec-support (3.11.0)
+    tzinfo (2.0.4)
+      concurrent-ruby (~> 1.0)
+
+PLATFORMS
+  arm64-darwin-20
+
+DEPENDENCIES
+  rake (~> 13.0)
+  rexml
+  rspec (~> 3.0)
+  xtf-ruby!
+
+BUNDLED WITH
+   2.3.7
