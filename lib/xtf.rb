@@ -1,11 +1,11 @@
 # Copyright 2007 James (Jamie) Orchard-Hays
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #   http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,14 +17,15 @@ end
 
 # Try loading from local environment, ie vendor/rails, if error, use rubygems
 begin
-  require 'active_support'
+  require "active_support"
 rescue LoadError => e
-  require 'rubygems'
-  require 'active_support'
+  require "rubygems"
+  require "active_support"
 end
 
-$:.unshift(File.dirname(__FILE__))
-require 'xtf/xml'
-require 'xtf/search'
-require 'xtf/result'
 require "active_support/core_ext/string"
+
+# $:.unshift(File.dirname(__FILE__))
+require_relative "xtf/xml"
+require_relative "xtf/search"
+require_relative "xtf/result"
