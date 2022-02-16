@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary = "Ruby library for working with California Digital Library's XTF."
   # s.description = "TODO: Write a longer description or delete this line."
   s.homepage = "https://github.com/jamieorc/xtf-ruby"
-  s.license = "Apache License, Version 2.0"
+  s.license = "Apache-2.0"
   s.required_ruby_version = ">= 2.6.0"
 
   # s.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
