@@ -1,8 +1,16 @@
-# XTF::Ruby
+# XTF-Ruby
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/xtf/ruby`. To experiment with that code, run `bin/console` for an interactive prompt.
+== Ruby Interface to XTF
 
-TODO: Delete this and the text above, and describe your gem
+=== Summary
+
+XTF-Ruby brings a Ruby interface to the XTF framework. For searches, it allows you to use Ruby to generate XML queries for XTF's RawQuery servlet which then responds with XTF's raw XML response.
+
+=== Status of Code
+
+Currently, the search section of the library is robust and employed in a production environment. For results, XTF-Ruby provides an API for parsing XTF's raw XML results into Ruby objects. This area is currently a work-in-progress, as I extract the code from a project for generalized use.
+
+In February of 2022 the old plugin was converted to a Ruby Gem, Specs were updated for RSpec ~>3 and improved, and a few small compatibility updates were made.
 
 ## Installation
 
@@ -36,7 +44,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/jamieo
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [APACHE-2.0 License](https://opensource.org/licenses/Apache-2.0).
 
 ## Code of Conduct
 
