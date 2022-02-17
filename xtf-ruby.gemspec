@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "rake", "~> 13.0"
   s.add_development_dependency "rspec", "~> 3.0"
-  s.add_development_dependency "rexml", "~> 3.2"
+  s.add_development_dependency "rexml", "~> 3.2", ">= 3.2.5"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html

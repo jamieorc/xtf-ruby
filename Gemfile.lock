@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    xtf-ruby (1.0.0)
+    xtf-ruby (1.0.2)
       activesupport
       libxml-ruby (~> 3.2)
 
@@ -20,7 +20,7 @@ GEM
     libxml-ruby (3.2.2)
     minitest (5.15.0)
     rake (13.0.6)
-    rexml (3.2.3.1)
+    rexml (3.2.5)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
@@ -42,7 +42,7 @@ PLATFORMS
 
 DEPENDENCIES
   rake (~> 13.0)
-  rexml (~> 3.2)
+  rexml (~> 3.2, >= 3.2.5)
   rspec (~> 3.0)
   xtf-ruby!
 
