@@ -3,7 +3,7 @@ PATH
   specs:
     xtf-ruby (1.0.0)
       activesupport
-      libxml-ruby
+      libxml-ruby (~> 3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -42,7 +42,7 @@ PLATFORMS
 
 DEPENDENCIES
   rake (~> 13.0)
-  rexml
+  rexml (~> 3.2)
   rspec (~> 3.0)
   xtf-ruby!
 
