@@ -1,3 +1,7 @@
+## [1.0.3] - 2022-02-17
+- Bump REXML dependency to at least 3.2.5 for security alert
+- https://secalerts.co/cve/CVE-2021-28965
+
 ## [1.0.2] - 2022-02-17
 - Corrected reference to version variable in gemspec for URI to CHANGELOG.md
 
