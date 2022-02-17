@@ -5,6 +5,6 @@ require_relative "ruby/version"
 module XTF
   module Ruby
     class Error < StandardError; end
-    # Your code goes here...
+    # placeholder
   end
 end
