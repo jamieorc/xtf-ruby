@@ -15,6 +15,14 @@ begin
     end
   end
 
+  # Some Hpricot-like convenience methods for LibXml
+  class XML::Document
+    def self.parse_string(xml)
+      xml_parser = XML::Parser.string(xml)
+      xml_parser.parse
+    end
+  end
+
   # then make a few modifications to XML::Node so it can stand in for REXML::Element
   class XML::Node
     # element.add_element(another_element) should work
@@ -38,17 +46,7 @@ begin
     def text
       self.content
     end
-  end
 
-  # Some Hpricot-like convenience methods for LibXml
-  class XML::Document
-    def self.parse_string(xml)
-      xml_parser = XML::Parser.string(xml)
-      xml_parser.parse
-    end
-  end
-
-  class XML::Node
     def at(xpath)
       self.find_first(xpath)
     end
