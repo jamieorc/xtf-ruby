@@ -112,27 +112,26 @@ RSpec.describe Clause do
     expect(@clause.content.first.value).to eq "word"
   end
 
-  it "should render XTF query xml when 'to_xml' called" do
+  it "should render XTF clause xml when 'to_xml' called" do
     attributes = {:field => "text", :max_snippets => "4"}
     @clause = Clause.create("and", attributes)
     expect(@clause.to_xml_node.attributes.size).to eq 2
     expect(@clause.to_xml_node.attributes['field']).to eq "text"
     expect(@clause.to_xml_node.attributes['maxSnippets']).to eq "4"
-    array=[]
+    result = @clause.to_xml
+    # expected = "<and maxSnippets='4' field='text'></and>"
+    expect(result).to match /<and[^>]+maxSnippets="4"[^>]*\/>/
+    expect(result).to match /<and[^>]+field="text"[^>]*\/>/
+
     @clause.content = Term.new("word")
-    expected = "<and maxSnippets='4' field='text'><term>word</term></and>"
-    d1 = REXML::Document.new(@clause.to_xml)
-    d2 = REXML::Document.new(expected)
-    if Kernel.const_defined?(:ERB) #runs in TextMate, not Rake
-      puts ERB::Util.h(expected)
-      puts "<br/>"
-      puts ERB::Util.h(@clause.to_xml)
-    end
-    # TODO these comparisons are not working in the way I expected them to.
-#     expect(d1.root).to eq d2.root
+    result = @clause.to_xml
+    # expected = "<and maxSnippets='4' field='text'><term>word</term></and>"
+    expect(result).to include("<term>word</term>")
 
     @clause.content << Term.new("digit")
-    # TODO these comparisons are not working in the way I expected them to.
-#     expect(REXML::Document.new(@clause.to_xml).write([]).first).to eq REXML::Document.new("<and maxSnippets='4' field='text'> <term>word</term> <term>digit</term> </and>").write([]).first
+    result = @clause.to_xml
+    # expected = "<and maxSnippets='4' field='text'><term>word</term><term>digit</term></and>"
+    expect(result).to include("<term>word</term>")
+    expect(result).to match /<and[^>]+>\s*<term>word<\/term>\s*<term>digit<\/term>\s*<\/and>/
   end
 end
