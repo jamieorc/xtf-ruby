@@ -1,3 +1,6 @@
+## [1.0.2] - 2022-02-17
+- Corrected reference to version variable in gemspec for URI to CHANGELOG.md
+
 ## [1.0.1] - 2022-02-17
 - Corrected URI in gemspec for this file
 
