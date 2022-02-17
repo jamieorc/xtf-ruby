@@ -1,28 +1,14 @@
-# Copyright 2007 James (Jamie) Orchard-Hays
-# 
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# 
-#   http://www.apache.org/licenses/LICENSE-2.0
-# 
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 # Models a single XTF Term. However, if the term is surrounded by double-quotes, then
 # a Phrase will be emitted for to_xml_node().
 
 class XTF::Search::Element::Term < XTF::Search::Element::Base
   attr_accessor :value
-  attr_accessor :section_type 
-  
+  attr_accessor :section_type
+
   # Should a phrase be parsed? Defaults to +true+
   attr_accessor :parse_phrase
 
-  # +new+ accepts an optional first argument for +value+ as well as an optional 
+  # +new+ accepts an optional first argument for +value+ as well as an optional
   # first or second argument +Hash+ of the +Term+'s +attributes+.
   # +value+ may be passed as the first argument or in attributes +Hash+ with key +:value+.
   # +section_type+ may be passed in the attributes +Hash+ with key +:section_type+.
@@ -36,17 +22,17 @@ class XTF::Search::Element::Term < XTF::Search::Element::Base
     super
     @value.strip! unless @value.nil?
   end
-  
-  # For convenience, if the Term's value matches /[\-\s\\\/.,;:]+/, it will be parsed as a Phrase. 
+
+  # For convenience, if the Term's value matches /[\-\s\\\/.,;:]+/, it will be parsed as a Phrase.
   # Double quotes on either end will be removed.
-  # 
+  #
   # "this phrase" woud yield:
-  # 
+  #
   #  <phrase>
   #     <term>this</term
   #     <term>phrase</term
   #   </phrase>
-  # 
+  #
   def to_xml_node
     if self.parse_phrase && self.value =~ XTF::Search::Constants.phrase_delimiters
       phrase = XTF::Search::Element::Phrase.new(self.attributes)

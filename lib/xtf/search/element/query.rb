@@ -1,17 +1,3 @@
-# Copyright 2007 James (Jamie) Orchard-Hays
-# 
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# 
-#   http://www.apache.org/licenses/LICENSE-2.0
-# 
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 class XTF::Search::Element::Query < XTF::Search::Element::Base
 
   STYLE_DEFAULT = "style/crossQuery/resultFormatter/default/resultFormatter.xsl"
@@ -27,7 +13,7 @@ class XTF::Search::Element::Query < XTF::Search::Element::Base
     params = args[0] || {}
     self.content = params.delete(:content) || []
     super(params)
-    
+
     @style ||= STYLE_DEFAULT
     @index_path ||= INDEX_PATH_DEFAULT
   end
@@ -36,12 +22,12 @@ class XTF::Search::Element::Query < XTF::Search::Element::Base
   def term=(value)
     self.content << (value.is_a?(XTF::Search::Element::Term) ? value : XTF::Search::Element::Term.new(value))
   end
-  
+
   def content=(value)
     value = [value] unless value.is_a?(Array)
     @content = value
   end
-  
+
   def to_xml_node
     xml = XTF::XML::Element.new(self.tag_name)
     self.attributes.each_pair { |key, value| xml.attributes[key.to_s.camelize(:lower)] = value if value}
@@ -51,6 +37,6 @@ class XTF::Search::Element::Query < XTF::Search::Element::Base
   end
   def to_xml
     to_xml_node.to_s
-  end  
-  
+  end
+
 end
